@@ -98,8 +98,9 @@ function* fetchProductDetail({ productId }) {
 
 function* fetchOrders() {
   try {
+    console.log("Get order hit1")
     const response = yield call(getOrders)
-    console.log("get orderes Clicked", response.result)
+    // console.log("get orderes Clicked", response.result)
     yield put(getOrdersSuccess(response.result))
   } catch (error) {
     yield put(getOrdersFail(error))

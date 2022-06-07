@@ -363,14 +363,13 @@ const EcommerceOrders = props => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  {/* <PaginationProvider
+                  <PaginationProvider
                     pagination={paginationFactory(pageOptions)}
                     keyField="id"
                     columns={EcommerceOrderColumns(toggle)}
                     data={orders}
-                  > */}
-                  {console.log("orders", orders)}
-                  {/* {({ paginationProps, paginationTableProps }) => (
+                  >
+                    {({ paginationProps, paginationTableProps }) => (
                       <ToolkitProvider
                         keyField="id"
                         data={orders}
@@ -428,32 +427,44 @@ const EcommerceOrders = props => {
                                   </ModalHeader>
                                   <ModalBody>
                                     <Form
-                                      onSubmit={(e) => {
-                                        e.preventDefault();
-                                        validation.handleSubmit();
-                                        return false;
+                                      onSubmit={e => {
+                                        e.preventDefault()
+                                        validation.handleSubmit()
+                                        return false
                                       }}
                                     >
                                       <Row form>
                                         <Col className="col-12">
                                           <div className="mb-3">
-                                            <Label className="form-label">Order Id</Label>
+                                            <Label className="form-label">
+                                              Order Id
+                                            </Label>
                                             <Input
                                               name="orderId"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.orderId || ""}
+                                              value={
+                                                validation.values.orderId || ""
+                                              }
                                               invalid={
-                                                validation.touched.orderId && validation.errors.orderId ? true : false
+                                                validation.touched.orderId &&
+                                                validation.errors.orderId
+                                                  ? true
+                                                  : false
                                               }
                                             />
-                                            {validation.touched.orderId && validation.errors.orderId ? (
-                                              <FormFeedback type="invalid">{validation.errors.orderId}</FormFeedback>
+                                            {validation.touched.orderId &&
+                                            validation.errors.orderId ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.orderId}
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
                                           <div className="mb-3">
-                                            <Label className="form-label">Billing Name</Label>
+                                            <Label className="form-label">
+                                              Billing Name
+                                            </Label>
                                             <Input
                                               name="billingName"
                                               type="text"
@@ -462,50 +473,83 @@ const EcommerceOrders = props => {
                                               }}
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.billingName || ""}
+                                              value={
+                                                validation.values.billingName ||
+                                                ""
+                                              }
                                               invalid={
-                                                validation.touched.billingName && validation.errors.billingName ? true : false
+                                                validation.touched
+                                                  .billingName &&
+                                                validation.errors.billingName
+                                                  ? true
+                                                  : false
                                               }
                                             />
-                                            {validation.touched.billingName && validation.errors.billingName ? (
-                                              <FormFeedback type="invalid">{validation.errors.billingName}</FormFeedback>
+                                            {validation.touched.billingName &&
+                                            validation.errors.billingName ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.billingName}
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
                                           <div className="mb-3">
-                                            <Label className="form-label">Order Date</Label>
+                                            <Label className="form-label">
+                                              Order Date
+                                            </Label>
                                             <Input
                                               name="orderdate"
                                               type="date"
                                               // value={orderList.orderdate || ""}
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.orderdate || ""}
+                                              value={
+                                                validation.values.orderdate ||
+                                                ""
+                                              }
                                               invalid={
-                                                validation.touched.orderdate && validation.errors.orderdate ? true : false
+                                                validation.touched.orderdate &&
+                                                validation.errors.orderdate
+                                                  ? true
+                                                  : false
                                               }
                                             />
-                                            {validation.touched.orderdate && validation.errors.orderdate ? (
-                                              <FormFeedback type="invalid">{validation.errors.orderdate}</FormFeedback>
+                                            {validation.touched.orderdate &&
+                                            validation.errors.orderdate ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.orderdate}
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
                                           <div className="mb-3">
-                                            <Label className="form-label">Total</Label>
+                                            <Label className="form-label">
+                                              Total
+                                            </Label>
                                             <Input
                                               name="total"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.total || ""}
+                                              value={
+                                                validation.values.total || ""
+                                              }
                                               invalid={
-                                                validation.touched.total && validation.errors.total ? true : false
+                                                validation.touched.total &&
+                                                validation.errors.total
+                                                  ? true
+                                                  : false
                                               }
                                             />
-                                            {validation.touched.total && validation.errors.total ? (
-                                              <FormFeedback type="invalid">{validation.errors.total}</FormFeedback>
+                                            {validation.touched.total &&
+                                            validation.errors.total ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.total}
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
                                           <div className="mb-3">
-                                            <Label className="form-label">Total</Label>
+                                            <Label className="form-label">
+                                              Total
+                                            </Label>
                                             <Input
                                               name="paymentStatus"
                                               type="select"
@@ -513,26 +557,38 @@ const EcommerceOrders = props => {
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.paymentStatus || ""
+                                                validation.values
+                                                  .paymentStatus || ""
                                               }
                                             >
                                               <option>Paid</option>
                                               <option>Chargeback</option>
                                               <option>Refund</option>
                                             </Input>
-                                            {validation.touched.paymentStatus && validation.errors.paymentStatus ? (
-                                              <FormFeedback type="invalid">{validation.errors.paymentStatus}</FormFeedback>
+                                            {validation.touched.paymentStatus &&
+                                            validation.errors.paymentStatus ? (
+                                              <FormFeedback type="invalid">
+                                                {
+                                                  validation.errors
+                                                    .paymentStatus
+                                                }
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
                                           <div className="mb-3">
-                                            <Label className="form-label">Badge Class</Label>
+                                            <Label className="form-label">
+                                              Badge Class
+                                            </Label>
                                             <Input
                                               name="badgeclass"
                                               type="select"
                                               className="form-select"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.badgeclass || ""}
+                                              value={
+                                                validation.values.badgeclass ||
+                                                ""
+                                              }
                                             >
                                               <option>success</option>
                                               <option>danger</option>
@@ -540,7 +596,9 @@ const EcommerceOrders = props => {
                                             </Input>
                                           </div>
                                           <div className="mb-3">
-                                            <Label className="form-label">Payment Method</Label>
+                                            <Label className="form-label">
+                                              Payment Method
+                                            </Label>
                                             <Input
                                               name="paymentMethod"
                                               type="select"
@@ -548,7 +606,8 @@ const EcommerceOrders = props => {
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.paymentMethod || ""
+                                                validation.values
+                                                  .paymentMethod || ""
                                               }
                                             >
                                               <option>Mastercard</option>
@@ -586,8 +645,8 @@ const EcommerceOrders = props => {
                           </React.Fragment>
                         )}
                       </ToolkitProvider>
-                    )} */}
-                  {/* </PaginationProvider> */}
+                    )}
+                  </PaginationProvider>
                 </CardBody>
               </Card>
             </Col>
