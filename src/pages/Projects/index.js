@@ -52,7 +52,7 @@ const EcommerceOrders = props => {
   const [orderList, setOrderList] = useState([])
   const [order, setOrder] = useState(null)
 
-//   console.log(order, "orderrrr")
+  //   console.log(order, "orderrrr")
 
   // validation
   const validation = useFormik({
@@ -92,10 +92,9 @@ const EcommerceOrders = props => {
       //   paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
     }),
     onSubmit: values => {
-
-    // console.log(values,"valuessssssssssssssssssssssssssssssssssss")
+      // console.log(values,"valuessssssssssssssssssssssssssssssssssss")
       if (isEdit) {
-          console.log("edittriggered",values, "triggered edittttttttttttttttttt")
+        console.log("edittriggered", values, "triggered edittttttttttttttttttt")
         const updateOrder = {
           id: order ? order.id : 0,
           projectName: values.projectName,
@@ -257,6 +256,7 @@ const EcommerceOrders = props => {
 
   useEffect(() => {
     if (orders && !orders.length) {
+      console.log("dispatch", dispatch(onGetOrders()))
       dispatch(onGetOrders())
     }
   }, [dispatch, orders])

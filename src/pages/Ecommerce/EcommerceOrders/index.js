@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
-import MetaTags from "react-meta-tags";
-import PropTypes from "prop-types";
-import { withRouter, Link } from "react-router-dom";
-import { isEmpty } from "lodash";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useEffect, useState, useRef } from "react"
+import MetaTags from "react-meta-tags"
+import PropTypes from "prop-types"
+import { withRouter, Link } from "react-router-dom"
+import { isEmpty } from "lodash"
+import BootstrapTable from "react-bootstrap-table-next"
 import paginationFactory, {
   PaginationListStandalone,
   PaginationProvider,
-} from "react-bootstrap-table2-paginator";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import DeleteModal from "../../../components/Common/DeleteModal";
+} from "react-bootstrap-table2-paginator"
+import * as Yup from "yup"
+import { useFormik } from "formik"
+import DeleteModal from "../../../components/Common/DeleteModal"
 
-import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
-import * as moment from "moment";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit"
+import * as moment from "moment"
 
 import {
   Button,
@@ -31,28 +31,28 @@ import {
   Input,
   FormFeedback,
   Label,
-} from "reactstrap";
+} from "reactstrap"
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"
 
 //Import Breadcrumb
-import Breadcrumbs from "components/Common/Breadcrumb";
+import Breadcrumbs from "components/Common/Breadcrumb"
 
 import {
   getOrders as onGetOrders,
   addNewOrder as onAddNewOrder,
   updateOrder as onUpdateOrder,
   deleteOrder as onDeleteOrder,
-} from "store/actions";
+} from "store/actions"
 
-import EcommerceOrdersModal from "./EcommerceOrdersModal";
+import EcommerceOrdersModal from "./EcommerceOrdersModal"
 
 const EcommerceOrders = props => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [orderList, setOrderList] = useState([]);
-  const [order, setOrder] = useState(null);
+  const [orderList, setOrderList] = useState([])
+  const [order, setOrder] = useState(null)
 
   // validation
   const validation = useFormik({
@@ -60,13 +60,13 @@ const EcommerceOrders = props => {
     enableReinitialize: true,
 
     initialValues: {
-      orderId: (order && order.orderId) || '',
-      billingName: (order && order.billingName) || '',
-      orderdate: (order && order.orderdate) || '',
-      total: (order && order.total) || '',
-      paymentStatus: (order && order.paymentStatus) || 'Paid',
-      badgeclass: (order && order.badgeclass) || 'success',
-      paymentMethod: (order && order.paymentMethod) || 'Mastercard',
+      orderId: (order && order.orderId) || "",
+      billingName: (order && order.billingName) || "",
+      orderdate: (order && order.orderdate) || "",
+      total: (order && order.total) || "",
+      paymentStatus: (order && order.paymentStatus) || "Paid",
+      badgeclass: (order && order.badgeclass) || "success",
+      paymentMethod: (order && order.paymentMethod) || "Mastercard",
     },
     validationSchema: Yup.object({
       orderId: Yup.string().required("Please Enter Your Order Id"),
@@ -77,7 +77,7 @@ const EcommerceOrders = props => {
       badgeclass: Yup.string().required("Please Enter Your Badge Class"),
       paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
     }),
-    onSubmit: (values) => {
+    onSubmit: values => {
       if (isEdit) {
         const updateOrder = {
           id: order ? order.id : 0,
@@ -88,10 +88,10 @@ const EcommerceOrders = props => {
           paymentStatus: values.paymentStatus,
           paymentMethod: values.paymentMethod,
           badgeclass: values.badgeclass,
-        };
+        }
         // update order
-        dispatch(onUpdateOrder(updateOrder));
-        validation.resetForm();
+        dispatch(onUpdateOrder(updateOrder))
+        validation.resetForm()
       } else {
         const newOrder = {
           id: Math.floor(Math.random() * (30 - 20)) + 20,
@@ -102,45 +102,43 @@ const EcommerceOrders = props => {
           paymentStatus: values["paymentStatus"],
           paymentMethod: values["paymentMethod"],
           badgeclass: values["badgeclass"],
-        };
+        }
         // save new order
-        dispatch(onAddNewOrder(newOrder));
-        validation.resetForm();
+        dispatch(onAddNewOrder(newOrder))
+        validation.resetForm()
       }
-      toggle();
+      toggle()
     },
-  });
+  })
 
   const { orders } = useSelector(state => ({
     orders: state.ecommerce.orders,
-  }));
+  }))
 
   const selectRow = {
     mode: "checkbox",
-  };
+  }
 
-  const [modal, setModal] = useState(false);
-  const [modal1, setModal1] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [modal, setModal] = useState(false)
+  const [modal1, setModal1] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
 
   //pagination customization
   const pageOptions = {
     sizePerPage: 10,
     totalSize: orders.length, // replace later with size(orders),
     custom: true,
-  };
-  const { SearchBar } = Search;
+  }
+  const { SearchBar } = Search
 
   // const toggleModal = () => {
   //   setModal1(!modal1)
   // }
-  const toggleViewModal = () => setModal1(!modal1);
+  const toggleViewModal = () => setModal1(!modal1)
 
   const toLowerCase1 = str => {
-    return (
-      str === "" || str === undefined ? "" : str.toLowerCase()
-    );
-  };
+    return str === "" || str === undefined ? "" : str.toLowerCase()
+  }
 
   const EcommerceOrderColumns = toggleModal => [
     {
@@ -254,36 +252,36 @@ const EcommerceOrders = props => {
         </>
       ),
     },
-  ];
+  ]
 
   useEffect(() => {
     if (orders && !orders.length) {
-      dispatch(onGetOrders());
+      dispatch(onGetOrders())
     }
-  }, [dispatch, orders]);
+  }, [dispatch, orders])
 
   useEffect(() => {
-    setOrderList(orders);
-  }, [orders]);
+    setOrderList(orders)
+  }, [orders])
 
   useEffect(() => {
     if (!isEmpty(orders) && !!isEdit) {
-      setOrderList(orders);
-      setIsEdit(false);
+      setOrderList(orders)
+      setIsEdit(false)
     }
-  }, [orders]);
+  }, [orders])
 
   const toggle = () => {
     if (modal) {
-      setModal(false);
-      setOrder(null);
+      setModal(false)
+      setOrder(null)
     } else {
-      setModal(true);
+      setModal(true)
     }
-  };
+  }
 
   const handleOrderClick = arg => {
-    const order = arg;
+    const order = arg
 
     setOrder({
       id: order.id,
@@ -294,14 +292,14 @@ const EcommerceOrders = props => {
       paymentStatus: order.paymentStatus,
       paymentMethod: order.paymentMethod,
       badgeclass: order.badgeclass,
-    });
+    })
 
-    setIsEdit(true);
+    setIsEdit(true)
 
-    toggle();
-  };
+    toggle()
+  }
 
-  var node = useRef();
+  var node = useRef()
   const onPaginationPageChange = page => {
     if (
       node &&
@@ -310,42 +308,42 @@ const EcommerceOrders = props => {
       node.current.props.pagination &&
       node.current.props.pagination.options
     ) {
-      node.current.props.pagination.options.onPageChange(page);
+      node.current.props.pagination.options.onPageChange(page)
     }
-  };
+  }
 
   //delete order
-  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false)
 
-  const onClickDelete = (order) => {
-    setOrder(order);
-    setDeleteModal(true);
-  };
+  const onClickDelete = order => {
+    setOrder(order)
+    setDeleteModal(true)
+  }
 
   const handleDeleteOrder = () => {
     if (order.id) {
-      dispatch(onDeleteOrder(order));
-      onPaginationPageChange(1);
-      setDeleteModal(false);
+      dispatch(onDeleteOrder(order))
+      onPaginationPageChange(1)
+      setDeleteModal(false)
     }
-  };
+  }
   const handleOrderClicks = () => {
-    setOrderList("");
-    setIsEdit(false);
-    toggle();
-  };
+    setOrderList("")
+    setIsEdit(false)
+    toggle()
+  }
 
   const handleValidDate = date => {
-    const date1 = moment(new Date(date)).format("DD MMM Y");
-    return date1;
-  };
+    const date1 = moment(new Date(date)).format("DD MMM Y")
+    return date1
+  }
 
   const defaultSorted = [
     {
       dataField: "orderId",
       order: "desc",
     },
-  ];
+  ]
 
   return (
     <React.Fragment>
@@ -365,13 +363,14 @@ const EcommerceOrders = props => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <PaginationProvider
+                  {/* <PaginationProvider
                     pagination={paginationFactory(pageOptions)}
                     keyField="id"
                     columns={EcommerceOrderColumns(toggle)}
                     data={orders}
-                  >
-                    {({ paginationProps, paginationTableProps }) => (
+                  > */}
+                  {console.log("orders", orders)}
+                  {/* {({ paginationProps, paginationTableProps }) => (
                       <ToolkitProvider
                         keyField="id"
                         data={orders}
@@ -587,8 +586,8 @@ const EcommerceOrders = props => {
                           </React.Fragment>
                         )}
                       </ToolkitProvider>
-                    )}
-                  </PaginationProvider>
+                    )} */}
+                  {/* </PaginationProvider> */}
                 </CardBody>
               </Card>
             </Col>
@@ -596,8 +595,8 @@ const EcommerceOrders = props => {
         </Container>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
 EcommerceOrders.propTypes = {
   orders: PropTypes.array,
@@ -605,7 +604,6 @@ EcommerceOrders.propTypes = {
   onAddNewOrder: PropTypes.func,
   onDeleteOrder: PropTypes.func,
   onUpdateOrder: PropTypes.func,
-};
+}
 
-export default withRouter(EcommerceOrders);
-
+export default withRouter(EcommerceOrders)
