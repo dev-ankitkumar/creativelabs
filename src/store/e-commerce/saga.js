@@ -184,7 +184,9 @@ function* onDeleteOrder({ payload: order }) {
 
 function* onAddNewOrder({ payload: order }) {
   try {
+    console.log(order, "onAddNewOrder1")
     const response = yield call(addNewOrder, order)
+    console.log(response, "onAddNewOrder response")
     yield put(addOrderSuccess(response))
   } catch (error) {
     yield put(addOrderFail(error))

@@ -22,7 +22,6 @@ export async function get(url, tokenCheck) {
   const config = {
     headers: { Authorization: `Bearer ${tokenCheck}` },
   }
-  console.log(config, "config")
   if (tokenCheck) {
     return await axiosApi.get(url, config).then(response => response.data)
   } else {
@@ -30,7 +29,11 @@ export async function get(url, tokenCheck) {
   }
 }
 
-export async function post(url, data, config = {}) {
+export async function post(url, data, tokenCheck) {
+  const config = {
+    headers: { Authorization: `Bearer ${tokenCheck}` },
+  }
+
   return axiosApi
     .post(url, { ...data }, { ...config })
     .then(response => response.data)

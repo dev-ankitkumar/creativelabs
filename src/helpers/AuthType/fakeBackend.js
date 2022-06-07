@@ -591,18 +591,18 @@ const fakeBackend = () => {
   //   })
   // })
 
-  mock.onPost(url.ADD_NEW_ORDER).reply(order => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (order && order.data) {
-          // Passing fake JSON data as response
-          resolve([200, order.data])
-        } else {
-          reject([400, "Cannot add order"])
-        }
-      })
-    })
-  })
+  // mock.onPost(url.ADD_NEW_ORDER).reply(order => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (order && order.data) {
+  //         // Passing fake JSON data as response
+  //         resolve([200, order.data])
+  //       } else {
+  //         reject([400, "Cannot add order"])
+  //       }
+  //     })
+  //   })
+  // })
 
   mock.onPut(url.UPDATE_ORDER).reply(order => {
     return new Promise((resolve, reject) => {

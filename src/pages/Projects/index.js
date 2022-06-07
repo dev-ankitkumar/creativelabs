@@ -61,13 +61,13 @@ const EcommerceOrders = props => {
 
     initialValues: {
       name: (order && order.name) || "",
-      tm_or_fixed_cost: (order && order.tm_or_fixed_cost) || "",
+      tm_or_fixed_cost: (order && order.tm_or_fixed_cost) || "True",
       short_description: (order && order.short_description) || "",
       deadline: (order && order.deadline) || "",
       tech_stack: (order && order.tech_stack) || "",
       no_of_resource: (order && order.no_of_resource) || "",
       spoc_manager: (order && order.spoc_manager) || "",
-      pin_to_dashboard: (order && order.pin_to_dashboard) || "",
+      pin_to_dashboard: (order && order.pin_to_dashboard) || "True",
 
       //   orderId: (order && order.orderId) || "",
       //   billingName: (order && order.billingName) || "",
@@ -82,7 +82,10 @@ const EcommerceOrders = props => {
       tech_stack: Yup.string().required(
         "Please Enter the technology required for project"
       ),
+      deadline: Yup.string().required("Please Enter the Deadline"),
       spoc_manager: Yup.string().required("Please Enter the SPOC/Manager"),
+      no_of_resource: Yup.string().required("Please Enter the No of resources"),
+      short_description: Yup.string().required("Please Enter the Description"),
       //   orderId: Yup.string().required("Please Enter Your Order Id"),
       //   billingName: Yup.string().required("Please Enter Your Billing Name"),
       //   orderdate: Yup.string().required("Please Enter Your Order Date"),
@@ -118,15 +121,14 @@ const EcommerceOrders = props => {
         validation.resetForm()
       } else {
         const newOrder = {
-          id: Math.floor(Math.random() * (30 - 20)) + 20,
           name: values["name"],
-          tm_or_fixed_cost: values["tm_or_fixed_cost"],
+          tm_or_fixed_cost: values["tm_or_fixed_cost"] == "True" ? 1 : 0,
           short_description: values["short_description"],
           deadline: values["deadline"],
           tech_stack: values["tech_stack"],
           no_of_resource: values["no_of_resource"],
           spoc_manager: values["spoc_manager"],
-          pin_to_dashboard: values["pin_to_dashboard"],
+          pin_to_dashboard: values["pin_to_dashboard"] == "True" ? 1 : 0,
           //   orderId: values["orderId"],
           //   billingName: values["billingName"],
           //   orderdate: values["orderdate"],
@@ -474,7 +476,7 @@ const EcommerceOrders = props => {
                                               onBlur={validation.handleBlur}
                                               value={
                                                 validation.values
-                                                  .tm_or_fixed_cost || ""
+                                                  .tm_or_fixed_cost || "True"
                                               }
                                             >
                                               <option>True</option>
@@ -489,20 +491,28 @@ const EcommerceOrders = props => {
                                             <textarea
                                               className="form-control"
                                               id="short_description"
+                                              // name="short_description"
                                               placeholder="Short Description about project..."
                                               rows="3"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={
-                                                validation.values
-                                                  .short_description || ""
-                                              }
                                             ></textarea>
+                                            {validation.touched
+                                              .short_description &&
+                                            validation.errors
+                                              .short_description ? (
+                                              <FormFeedback type="invalid">
+                                                {
+                                                  validation.errors
+                                                    .short_description
+                                                }
+                                              </FormFeedback>
+                                            ) : null}
                                           </div>
 
                                           <div className="mb-3">
                                             <Label className="form-label">
-                                              Deadline(if any)
+                                              Deadline
                                             </Label>
                                             <Input
                                               name="deadline"
@@ -513,7 +523,19 @@ const EcommerceOrders = props => {
                                               value={
                                                 validation.values.deadline || ""
                                               }
+                                              invalid={
+                                                validation.touched.deadline &&
+                                                validation.errors.deadline
+                                                  ? true
+                                                  : false
+                                              }
                                             />
+                                            {validation.touched.deadline &&
+                                            validation.errors.deadline ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.deadline}
+                                              </FormFeedback>
+                                            ) : null}
                                           </div>
 
                                           <div className="mb-3">
@@ -557,7 +579,24 @@ const EcommerceOrders = props => {
                                                 validation.values
                                                   .no_of_resource || ""
                                               }
+                                              invalid={
+                                                validation.touched
+                                                  .no_of_resource &&
+                                                validation.errors.no_of_resource
+                                                  ? true
+                                                  : false
+                                              }
                                             />
+                                            {validation.touched
+                                              .no_of_resource &&
+                                            validation.errors.no_of_resource ? (
+                                              <FormFeedback type="invalid">
+                                                {
+                                                  validation.errors
+                                                    .no_of_resource
+                                                }
+                                              </FormFeedback>
+                                            ) : null}
                                           </div>
 
                                           <div className="mb-3">
@@ -601,7 +640,7 @@ const EcommerceOrders = props => {
                                               onBlur={validation.handleBlur}
                                               value={
                                                 validation.values
-                                                  .pin_to_dashboard || ""
+                                                  .pin_to_dashboard || "True"
                                               }
                                             >
                                               <option>True</option>
