@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "590b6808-6d6e-44b7-9f3b-3c692c040012",
+		"name": "Creative Lab Matrics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Profile ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|z9qi8icAUN0RX3Ur5NS3jhgOQdA5NXP02UzEOHbF",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/sanctum/api/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"sanctum",
+						"api",
+						"profile"
+					]
+				},
+				"description": "http://localhost/sanctum/api/profile"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "villiam1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "villiam1@yopmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://stgphys.appsndevs.com/labmatrics/api/login",
+					"protocol": "https",
+					"host": [
+						"stgphys",
+						"appsndevs",
+						"com"
+					],
+					"path": [
+						"labmatrics",
+						"api",
+						"login"
+					]
+				},
+				"description": "http://localhost/sanctum/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "User Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Subangi Sharma",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "subhangi@yopmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://stgphys.appsndevs.com/labmatrics/api/register",
+					"protocol": "https",
+					"host": [
+						"stgphys",
+						"appsndevs",
+						"com"
+					],
+					"path": [
+						"labmatrics",
+						"api",
+						"register"
+					]
+				},
+				"description": "http://localhost/sanctum/api/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Project List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|z9qi8icAUN0RX3Ur5NS3jhgOQdA5NXP02UzEOHbFa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://stgphys.appsndevs.com/labmatrics/api/projects",
+					"protocol": "https",
+					"host": [
+						"stgphys",
+						"appsndevs",
+						"com"
+					],
+					"path": [
+						"labmatrics",
+						"api",
+						"projects"
+					]
+				},
+				"description": "http://localhost/sanctum/api/projects"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|z9qi8icAUN0RX3Ur5NS3jhgOQdA5NXP02UzEOHbF",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    id: 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/sanctum/api/project-show/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"sanctum",
+						"api",
+						"project-show",
+						"11"
+					]
+				},
+				"description": "http://localhost/sanctum/api/project-show/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Project Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|z9qi8icAUN0RX3Ur5NS3jhgOQdA5NXP02UzEOHbFa",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"name\": \"Lab Matrics Project update\",\n    \"tm_or_fixed_cost\":1,\n    \"short_description\":\"Short Description\",\n    \"deadline\":\"20/06/2022\",\n    \"tech_stack\":\"Mern Developer\",\n    \"no_of_resource\":2,\n    \"spoc_manager\":\"Spoc Manager\",\n    \"pin_to_dashboard\":\"2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stgphys.appsndevs.com/labmatrics/api/project-create",
+					"protocol": "https",
+					"host": [
+						"stgphys",
+						"appsndevs",
+						"com"
+					],
+					"path": [
+						"labmatrics",
+						"api",
+						"project-create"
+					]
+				},
+				"description": "https://stgphys.appsndevs.com/labmatrics/api/project-create"
+			},
+			"response": []
+		}
+	]
+}
