@@ -154,7 +154,7 @@ const Login = props => {
                       }}
                     >
                       {error ? (
-                        <Alert color="danger">{error.message}</Alert>
+                        <Alert color="danger">{error?.message}</Alert>
                       ) : null}
 
                       <div className="mb-3">
