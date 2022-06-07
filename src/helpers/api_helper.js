@@ -18,8 +18,16 @@ axiosApi.interceptors.response.use(
   error => Promise.reject(error)
 )
 
-export async function get(url, config = {}) {
-  return await axiosApi.get(url, { ...config }).then(response => response.data)
+export async function get(url, tokenCheck) {
+  const config = {
+    headers: { Authorization: `Bearer ${tokenCheck}` },
+  }
+  console.log(config, "config")
+  if (tokenCheck) {
+    return await axiosApi.get(url, config).then(response => response.data)
+  } else {
+    return await axiosApi.get(url).then(response => response.data)
+  }
 }
 
 export async function post(url, data, config = {}) {

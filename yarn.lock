@@ -11943,7 +11943,7 @@
     "tiny-warning" "^1.0.0"
 
 "react-script@^2.0.5":
-  "integrity" "sha1-nawg+Xz/H7QPW0CE4/RLguMAFXI="
+  "integrity" "sha1-nawg+Xz/H7QPW0CE4/RLguMAFXI= sha512-hLFLMFAH3Rr0VJisBz/bPyaJxMEimQGvuVOBXyn3t/nmlbV6mF+nghCPoY1V4dzIi+M1A8iyyXId1cgg8eS6XA=="
   "resolved" "https://registry.npmjs.org/react-script/-/react-script-2.0.5.tgz"
   "version" "2.0.5"
 
@@ -12369,7 +12369,7 @@
     "unicode-match-property-value-ecmascript" "^2.0.0"
 
 "region-align@^2.1.3":
-  "integrity" "sha1-el67ne/z0pwz0jWYx6AD07/eCl4="
+  "integrity" "sha1-el67ne/z0pwz0jWYx6AD07/eCl4= sha512-99+X/UE6brBMJ4mUUviuBlrdMDyCdvyOpkEJsFcRUDAKWyClBHjZV/ivLUsLevgfpSapo7ZYeYrimuyP26wO0w=="
   "resolved" "https://registry.npmjs.org/region-align/-/region-align-2.1.3.tgz"
   "version" "2.1.3"
   dependencies:
@@ -12377,7 +12377,7 @@
     "region" "^2.1.2"
 
 "region@^2.1.2":
-  "integrity" "sha1-z9lYaK+8SeTHoFO2d7xaCYXCmvo="
+  "integrity" "sha1-z9lYaK+8SeTHoFO2d7xaCYXCmvo= sha512-e34CShd2J76g0YZVZiCBqyJox8wcM3dMRpeuBEN4bJAL4kev6cWAhlJPnb3HwozS90goRd1nuwY5P3Qy+6aAaA=="
   "resolved" "https://registry.npmjs.org/region/-/region-2.1.2.tgz"
   "version" "2.1.2"
   dependencies:

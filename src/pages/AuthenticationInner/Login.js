@@ -1,47 +1,37 @@
-import React from "react"
-import MetaTags from "react-meta-tags"
+import React from "react";
+import MetaTags from 'react-meta-tags';
 // Redux
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
-import {
-  Row,
-  Col,
-  CardBody,
-  Card,
-  Container,
-  Form,
-  Input,
-  Label,
-  FormFeedback,
-} from "reactstrap"
+import { Row, Col, CardBody, Card, Container, Form, Input, Label, FormFeedback } from "reactstrap";
 
 // Formik validation
-import * as Yup from "yup"
-import { useFormik } from "formik"
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 // import images
-import profile from "../../assets/images/profile-img.png"
-import logo from "../../assets/images/logo.svg"
-import lightlogo from "../../assets/images/logo-light.svg"
+import profile from "../../assets/images/profile-img.png";
+import logo from "../../assets/images/logo.svg";
+import lightlogo from "../../assets/images/logo-light.svg";
 
 const Login = () => {
-  // Form validation
+// Form validation 
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
 
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: values => {
-      console.log("values", values)
-    },
-  })
+    onSubmit: (values) => {
+      console.log("values", values);
+    }
+  });
   return (
     <React.Fragment>
       <MetaTags>
@@ -98,12 +88,11 @@ const Login = () => {
                     </Link>
                   </div>
                   <div className="p-2">
-                    <Form
-                      className="form-horizontal"
-                      onSubmit={e => {
-                        e.preventDefault()
-                        validation.handleSubmit()
-                        return false
+                    <Form className="form-horizontal"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        validation.handleSubmit();
+                        return false;
                       }}
                     >
                       <div className="mb-3">
@@ -117,15 +106,11 @@ const Login = () => {
                           onBlur={validation.handleBlur}
                           value={validation.values.email || ""}
                           invalid={
-                            validation.touched.email && validation.errors.email
-                              ? true
-                              : false
+                            validation.touched.email && validation.errors.email ? true : false
                           }
                         />
                         {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid">
-                            {validation.errors.email}
-                          </FormFeedback>
+                          <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
                         ) : null}
                       </div>
 
@@ -139,17 +124,11 @@ const Login = () => {
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           invalid={
-                            validation.touched.password &&
-                            validation.errors.password
-                              ? true
-                              : false
+                            validation.touched.password && validation.errors.password ? true : false
                           }
                         />
-                        {validation.touched.password &&
-                        validation.errors.password ? (
-                          <FormFeedback type="invalid">
-                            {validation.errors.password}
-                          </FormFeedback>
+                        {validation.touched.password && validation.errors.password ? (
+                          <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
                         ) : null}
                       </div>
 
@@ -220,7 +199,10 @@ const Login = () => {
               <div className="mt-5 text-center">
                 <p>
                   Don&apos;t have an account ?{" "}
-                  <Link to="pages-register" className="fw-medium text-primary">
+                  <Link
+                    to="pages-register"
+                    className="fw-medium text-primary"
+                  >
                     {" "}
                     Signup now{" "}
                   </Link>{" "}
@@ -235,7 +217,7 @@ const Login = () => {
         </Container>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

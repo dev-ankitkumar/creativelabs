@@ -14,7 +14,8 @@ const getLoggedInUser = () => {
 const isUserAuthenticated = () => {
   return getLoggedInUser() !== null
 }
-console.log(url)
+const LocalData = JSON.parse(localStorage.getItem("authUser"))?.access_token
+
 // Register Method
 const postFakeRegister = data => {
   // console.log(data.email)
@@ -145,7 +146,7 @@ export const getMessages = (roomId = "") =>
 export const addMessage = message => post(url.ADD_MESSAGE, message)
 
 // get orders
-export const getOrders = () => get(url.GET_ORDERS)
+export const getOrders = () => get(url.GET_ORDERS, LocalData)
 
 // add order
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order)

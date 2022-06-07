@@ -10,7 +10,7 @@ import paginationFactory, {
 } from "react-bootstrap-table2-paginator"
 import * as Yup from "yup"
 import { useFormik } from "formik"
-import DeleteModal from "../../../components/Common/DeleteModal"
+import DeleteModal from "../../components/Common/DeleteModal"
 
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit"
 import * as moment from "moment"
@@ -46,13 +46,13 @@ import {
   deleteOrder as onDeleteOrder,
 } from "store/actions"
 
-import EcommerceOrdersModal from "./EcommerceOrdersModal"
-
 const EcommerceOrders = props => {
   const dispatch = useDispatch()
 
   const [orderList, setOrderList] = useState([])
   const [order, setOrder] = useState(null)
+
+  //   console.log(order, "orderrrr")
 
   // validation
   const validation = useFormik({
@@ -60,34 +60,58 @@ const EcommerceOrders = props => {
     enableReinitialize: true,
 
     initialValues: {
-      orderId: (order && order.orderId) || "",
-      billingName: (order && order.billingName) || "",
-      orderdate: (order && order.orderdate) || "",
-      total: (order && order.total) || "",
-      paymentStatus: (order && order.paymentStatus) || "Paid",
-      badgeclass: (order && order.badgeclass) || "success",
-      paymentMethod: (order && order.paymentMethod) || "Mastercard",
+      projectName: (order && order.projectName) || "",
+      fixedCost: (order && order.fixedCost) || "",
+      shortDescription: (order && order.shortDescription) || "",
+      deadline: (order && order.deadline) || "",
+      techStack: (order && order.techStack) || "",
+      noOfResourcesPlanned: (order && order.noOfResourcesPlanned) || "",
+      spocManager: (order && order.spocManager) || "",
+      pinToDashboard: (order && order.pinToDashboard) || "",
+
+      //   orderId: (order && order.orderId) || "",
+      //   billingName: (order && order.billingName) || "",
+      //   orderdate: (order && order.orderdate) || "",
+      //   total: (order && order.total) || "",
+      //   paymentStatus: (order && order.paymentStatus) || "Paid",
+      //   badgeclass: (order && order.badgeclass) || "success",
+      //   paymentMethod: (order && order.paymentMethod) || "Mastercard",
     },
     validationSchema: Yup.object({
-      orderId: Yup.string().required("Please Enter Your Order Id"),
-      billingName: Yup.string().required("Please Enter Your Billing Name"),
-      orderdate: Yup.string().required("Please Enter Your Order Date"),
-      total: Yup.string().required("Total Amount"),
-      paymentStatus: Yup.string().required("Please Enter Your Payment Status"),
-      badgeclass: Yup.string().required("Please Enter Your Badge Class"),
-      paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
+      projectName: Yup.string().required("Please Enter Your Project Name"),
+      techStack: Yup.string().required(
+        "Please Enter the technology required for project"
+      ),
+      spocManager: Yup.string().required("Please Enter the SPOC/Manager"),
+      //   orderId: Yup.string().required("Please Enter Your Order Id"),
+      //   billingName: Yup.string().required("Please Enter Your Billing Name"),
+      //   orderdate: Yup.string().required("Please Enter Your Order Date"),
+      //   total: Yup.string().required("Total Amount"),
+      //   paymentStatus: Yup.string().required("Please Enter Your Payment Status"),
+      //   badgeclass: Yup.string().required("Please Enter Your Badge Class"),
+      //   paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
     }),
     onSubmit: values => {
+      // console.log(values,"valuessssssssssssssssssssssssssssssssssss")
       if (isEdit) {
+        console.log("edittriggered", values, "triggered edittttttttttttttttttt")
         const updateOrder = {
           id: order ? order.id : 0,
-          orderId: values.orderId,
-          billingName: values.billingName,
-          orderdate: values.orderdate,
-          total: values.total,
-          paymentStatus: values.paymentStatus,
-          paymentMethod: values.paymentMethod,
-          badgeclass: values.badgeclass,
+          projectName: values.projectName,
+          fixedCost: values.fixedCost,
+          shortDescription: values.shortDescription,
+          deadline: values.deadline,
+          techStack: values.techStack,
+          noOfResourcesPlanned: values.noOfResourcesPlanned,
+          spocManager: values.spocManager,
+          pinToDashboard: values.pinToDashboard,
+          //   orderId: values.orderId,
+          //   billingName: values.billingName,
+          //   orderdate: values.orderdate,
+          //   total: values.total,
+          //   paymentStatus: values.paymentStatus,
+          //   paymentMethod: values.paymentMethod,
+          //   badgeclass: values.badgeclass,
         }
         // update order
         dispatch(onUpdateOrder(updateOrder))
@@ -95,13 +119,21 @@ const EcommerceOrders = props => {
       } else {
         const newOrder = {
           id: Math.floor(Math.random() * (30 - 20)) + 20,
-          orderId: values["orderId"],
-          billingName: values["billingName"],
-          orderdate: values["orderdate"],
-          total: values["total"],
-          paymentStatus: values["paymentStatus"],
-          paymentMethod: values["paymentMethod"],
-          badgeclass: values["badgeclass"],
+          projectName: values["projectName"],
+          fixedCost: values["fixedCost"],
+          shortDescription: values["shortDescription"],
+          deadline: values["deadline"],
+          techStack: values["techStack"],
+          noOfResourcesPlanned: values["noOfResourcesPlanned"],
+          spocManager: values["spocManager"],
+          pinToDashboard: values["pinToDashboard"],
+          //   orderId: values["orderId"],
+          //   billingName: values["billingName"],
+          //   orderdate: values["orderdate"],
+          //   total: values["total"],
+          //   paymentStatus: values["paymentStatus"],
+          //   paymentMethod: values["paymentMethod"],
+          //   badgeclass: values["badgeclass"],
         }
         // save new order
         dispatch(onAddNewOrder(newOrder))
@@ -120,7 +152,6 @@ const EcommerceOrders = props => {
   }
 
   const [modal, setModal] = useState(false)
-  const [modal1, setModal1] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
 
   //pagination customization
@@ -134,7 +165,6 @@ const EcommerceOrders = props => {
   // const toggleModal = () => {
   //   setModal1(!modal1)
   // }
-  const toggleViewModal = () => setModal1(!modal1)
 
   const toLowerCase1 = str => {
     return str === "" || str === undefined ? "" : str.toLowerCase()
@@ -142,83 +172,53 @@ const EcommerceOrders = props => {
 
   const EcommerceOrderColumns = toggleModal => [
     {
-      dataField: "orderId",
-      text: "Order ID",
+      dataField: "projectName",
+      text: "Project Name",
       sort: true,
       // eslint-disable-next-line react/display-name
       formatter: (cellContent, row) => (
         <Link to="#" className="text-body fw-bold">
-          {row.orderId}
+          {row.projectName}
         </Link>
       ),
     },
     {
-      dataField: "billingName",
-      text: "Billing Name",
+      dataField: "fixedCost",
+      text: "Fixed Cost",
       sort: true,
     },
     {
-      dataField: "orderdate",
-      text: "Date",
+      dataField: "shortDescription",
+      text: "Short Description",
       sort: true,
       // eslint-disable-next-line react/display-name
-      formatter: (cellContent, row) => handleValidDate(row.orderdate),
+      //   formatter: (cellContent, row) => handleValidDate(row.orderdate),
     },
     {
-      dataField: "total",
-      text: "Total",
+      dataField: "deadline",
+      text: "Deadline",
+      sort: true,
+      formatter: (cellContent, row) => handleValidDate(row.deadline),
+    },
+    {
+      dataField: "techStack",
+      text: "Tech Stack",
       sort: true,
     },
     {
-      dataField: "paymentStatus",
-      text: "Payment Status",
+      dataField: "noOfResourcesPlanned",
+      text: "No of resources Planned",
       sort: true,
-      // eslint-disable-next-line react/display-name
-      formatter: (cellContent, row) => (
-        <Badge
-          className={"font-size-12 badge-soft-" + row.badgeclass}
-          color={row.badgeClass}
-          pill
-        >
-          {row.paymentStatus}
-        </Badge>
-      ),
     },
     {
-      dataField: "paymentMethod",
-      isDummyField: true,
-      text: "Payment Method",
+      dataField: "spocManager",
+      text: "SPOC/Manager",
       sort: true,
-      // eslint-disable-next-line react/display-name
-      formatter: (cellContent, row) => (
-        <>
-          <i
-            className={
-              row.paymentMethod !== "COD"
-                ? "fab fa-cc-" + toLowerCase1(row.paymentMethod) + " me-1"
-                : "fab fas fa-money-bill-alt me-1"
-            }
-          />{" "}
-          {row.paymentMethod}
-        </>
-      ),
     },
     {
-      dataField: "view",
-      isDummyField: true,
-      text: "View Details",
+      dataField: "pinToDashboard",
+      text: "Pin To Dashboard",
       sort: true,
-      // eslint-disable-next-line react/display-name
-      formatter: () => (
-        <Button
-          type="button"
-          color="primary"
-          className="btn-sm btn-rounded"
-          onClick={toggleViewModal}
-        >
-          View Details
-        </Button>
-      ),
     },
     {
       dataField: "action",
@@ -256,6 +256,7 @@ const EcommerceOrders = props => {
 
   useEffect(() => {
     if (orders && !orders.length) {
+      console.log("dispatch", dispatch(onGetOrders()))
       dispatch(onGetOrders())
     }
   }, [dispatch, orders])
@@ -285,13 +286,14 @@ const EcommerceOrders = props => {
 
     setOrder({
       id: order.id,
-      orderId: order.orderId,
-      billingName: order.billingName,
-      orderdate: order.orderdate,
-      total: order.total,
-      paymentStatus: order.paymentStatus,
-      paymentMethod: order.paymentMethod,
-      badgeclass: order.badgeclass,
+      projectName: order.projectName,
+      fixedCost: order.fixedCost,
+      shortDescription: order.shortDescription,
+      deadline: order.deadline,
+      techStack: order.techStack,
+      noOfResourcesPlanned: order.noOfResourcesPlanned,
+      spocManager: order.spocManager,
+      pinToDashboard: order.pinToDashboard,
     })
 
     setIsEdit(true)
@@ -340,14 +342,13 @@ const EcommerceOrders = props => {
 
   const defaultSorted = [
     {
-      dataField: "orderId",
+      dataField: "projectName",
       order: "desc",
     },
   ]
 
   return (
     <React.Fragment>
-      <EcommerceOrdersModal isOpen={modal1} toggle={toggleViewModal} />
       <DeleteModal
         show={deleteModal}
         onDeleteClick={handleDeleteOrder}
@@ -363,14 +364,13 @@ const EcommerceOrders = props => {
             <Col xs="12">
               <Card>
                 <CardBody>
-                  {/* <PaginationProvider
+                  <PaginationProvider
                     pagination={paginationFactory(pageOptions)}
                     keyField="id"
                     columns={EcommerceOrderColumns(toggle)}
                     data={orders}
-                  > */}
-                  {console.log("orders", orders)}
-                  {/* {({ paginationProps, paginationTableProps }) => (
+                  >
+                    {({ paginationProps, paginationTableProps }) => (
                       <ToolkitProvider
                         keyField="id"
                         data={orders}
@@ -428,133 +428,187 @@ const EcommerceOrders = props => {
                                   </ModalHeader>
                                   <ModalBody>
                                     <Form
-                                      onSubmit={(e) => {
-                                        e.preventDefault();
-                                        validation.handleSubmit();
-                                        return false;
+                                      onSubmit={e => {
+                                        e.preventDefault()
+                                        validation.handleSubmit()
+                                        return false
                                       }}
                                     >
                                       <Row form>
                                         <Col className="col-12">
                                           <div className="mb-3">
-                                            <Label className="form-label">Order Id</Label>
+                                            <Label className="form-label">
+                                              Project Name
+                                            </Label>
                                             <Input
-                                              name="orderId"
+                                              name="projectName"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.orderId || ""}
+                                              value={
+                                                validation.values.projectName ||
+                                                ""
+                                              }
                                               invalid={
-                                                validation.touched.orderId && validation.errors.orderId ? true : false
+                                                validation.touched
+                                                  .projectName &&
+                                                validation.errors.projectName
+                                                  ? true
+                                                  : false
                                               }
                                             />
-                                            {validation.touched.orderId && validation.errors.orderId ? (
-                                              <FormFeedback type="invalid">{validation.errors.orderId}</FormFeedback>
+                                            {validation.touched.projectName &&
+                                            validation.errors.projectName ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.projectName}
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
+
                                           <div className="mb-3">
-                                            <Label className="form-label">Billing Name</Label>
+                                            <Label className="form-label">
+                                              Fixed Cost
+                                            </Label>
                                             <Input
-                                              name="billingName"
-                                              type="text"
-                                              validate={{
-                                                required: { value: true },
-                                              }}
+                                              name="fixedCost"
+                                              type="select"
+                                              className="form-select"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.billingName || ""}
-                                              invalid={
-                                                validation.touched.billingName && validation.errors.billingName ? true : false
+                                              value={
+                                                validation.values.fixedCost ||
+                                                ""
                                               }
-                                            />
-                                            {validation.touched.billingName && validation.errors.billingName ? (
-                                              <FormFeedback type="invalid">{validation.errors.billingName}</FormFeedback>
-                                            ) : null}
+                                            >
+                                              <option>True</option>
+                                              <option>False</option>
+                                            </Input>
                                           </div>
+
                                           <div className="mb-3">
-                                            <Label className="form-label">Order Date</Label>
+                                            <Label htmlFor="short-description">
+                                              Short Description
+                                            </Label>
+                                            <textarea
+                                              className="form-control"
+                                              id="shortDescription"
+                                              placeholder="Short Description about project..."
+                                              rows="3"
+                                              onChange={validation.handleChange}
+                                              onBlur={validation.handleBlur}
+                                              value={
+                                                validation.values
+                                                  .shortDescription || ""
+                                              }
+                                            ></textarea>
+                                          </div>
+
+                                          <div className="mb-3">
+                                            <Label className="form-label">
+                                              Deadline(if any)
+                                            </Label>
                                             <Input
-                                              name="orderdate"
+                                              name="deadline"
                                               type="date"
                                               // value={orderList.orderdate || ""}
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.orderdate || ""}
-                                              invalid={
-                                                validation.touched.orderdate && validation.errors.orderdate ? true : false
+                                              value={
+                                                validation.values.deadline || ""
                                               }
                                             />
-                                            {validation.touched.orderdate && validation.errors.orderdate ? (
-                                              <FormFeedback type="invalid">{validation.errors.orderdate}</FormFeedback>
-                                            ) : null}
                                           </div>
+
                                           <div className="mb-3">
-                                            <Label className="form-label">Total</Label>
+                                            <Label className="form-label">
+                                              Tech Stack
+                                            </Label>
                                             <Input
-                                              name="total"
+                                              name="techStack"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={validation.values.total || ""}
+                                              value={
+                                                validation.values.techStack ||
+                                                ""
+                                              }
                                               invalid={
-                                                validation.touched.total && validation.errors.total ? true : false
+                                                validation.touched.techStack &&
+                                                validation.errors.techStack
+                                                  ? true
+                                                  : false
                                               }
                                             />
-                                            {validation.touched.total && validation.errors.total ? (
-                                              <FormFeedback type="invalid">{validation.errors.total}</FormFeedback>
+                                            {validation.touched.techStack &&
+                                            validation.errors.techStack ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.techStack}
+                                              </FormFeedback>
                                             ) : null}
                                           </div>
+
                                           <div className="mb-3">
-                                            <Label className="form-label">Total</Label>
+                                            <Label className="form-label">
+                                              No of Resources Planned
+                                            </Label>
                                             <Input
-                                              name="paymentStatus"
+                                              name="noOfResourcesPlanned"
+                                              type="number"
+                                              onChange={validation.handleChange}
+                                              onBlur={validation.handleBlur}
+                                              value={
+                                                validation.values
+                                                  .noOfResourcesPlanned || ""
+                                              }
+                                            />
+                                          </div>
+
+                                          <div className="mb-3">
+                                            <Label className="form-label">
+                                              SPOC/Manager
+                                            </Label>
+                                            <Input
+                                              name="spocManager"
+                                              type="text"
+                                              onChange={validation.handleChange}
+                                              onBlur={validation.handleBlur}
+                                              value={
+                                                validation.values.spocManager ||
+                                                ""
+                                              }
+                                              invalid={
+                                                validation.touched
+                                                  .spocManager &&
+                                                validation.errors.spocManager
+                                                  ? true
+                                                  : false
+                                              }
+                                            />
+                                            {validation.touched.spocManager &&
+                                            validation.errors.spocManager ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.spocManager}
+                                              </FormFeedback>
+                                            ) : null}
+                                          </div>
+
+                                          <div className="mb-3">
+                                            <Label className="form-label">
+                                              Pin to Dashboard
+                                            </Label>
+                                            <Input
+                                              name="pinToDashboard"
                                               type="select"
                                               className="form-select"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.paymentStatus || ""
+                                                validation.values
+                                                  .pinToDashboard || ""
                                               }
                                             >
-                                              <option>Paid</option>
-                                              <option>Chargeback</option>
-                                              <option>Refund</option>
-                                            </Input>
-                                            {validation.touched.paymentStatus && validation.errors.paymentStatus ? (
-                                              <FormFeedback type="invalid">{validation.errors.paymentStatus}</FormFeedback>
-                                            ) : null}
-                                          </div>
-                                          <div className="mb-3">
-                                            <Label className="form-label">Badge Class</Label>
-                                            <Input
-                                              name="badgeclass"
-                                              type="select"
-                                              className="form-select"
-                                              onChange={validation.handleChange}
-                                              onBlur={validation.handleBlur}
-                                              value={validation.values.badgeclass || ""}
-                                            >
-                                              <option>success</option>
-                                              <option>danger</option>
-                                              <option>warning</option>
-                                            </Input>
-                                          </div>
-                                          <div className="mb-3">
-                                            <Label className="form-label">Payment Method</Label>
-                                            <Input
-                                              name="paymentMethod"
-                                              type="select"
-                                              className="form-select"
-                                              onChange={validation.handleChange}
-                                              onBlur={validation.handleBlur}
-                                              value={
-                                                validation.values.paymentMethod || ""
-                                              }
-                                            >
-                                              <option>Mastercard</option>
-                                              <option>Visa</option>
-                                              <option>Paypal</option>
-                                              <option>COD</option>
+                                              <option>True</option>
+                                              <option>False</option>
                                             </Input>
                                           </div>
                                         </Col>
@@ -586,8 +640,8 @@ const EcommerceOrders = props => {
                           </React.Fragment>
                         )}
                       </ToolkitProvider>
-                    )} */}
-                  {/* </PaginationProvider> */}
+                    )}
+                  </PaginationProvider>
                 </CardBody>
               </Card>
             </Col>

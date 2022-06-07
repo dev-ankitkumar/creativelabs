@@ -1,5 +1,5 @@
 //REGISTER
-export const POST_FAKE_REGISTER = "/register"
+export const POST_FAKE_REGISTER = "/post-fake-register"
 
 //LOGIN
 export const POST_FAKE_LOGIN = "/login"
@@ -51,7 +51,7 @@ export const GET_MESSAGES = "/messages"
 export const ADD_MESSAGE = "/add/messages"
 
 //ORDERS
-export const GET_ORDERS = "/orders"
+export const GET_ORDERS = "/projects"
 export const ADD_NEW_ORDER = "/add/order"
 export const UPDATE_ORDER = "/update/order"
 export const DELETE_ORDER = "/delete/order"
@@ -77,7 +77,7 @@ export const GET_INVOICES = "/invoices"
 export const GET_INVOICE_DETAIL = "/invoice"
 
 //PROJECTS
-export const GET_PROJECTS = "/projects"
+export const GET_PROJECTS = "/projects1"
 export const GET_PROJECT_DETAIL = "/project"
 export const ADD_NEW_PROJECT = "/add/project"
 export const UPDATE_PROJECT = "/update/project"
