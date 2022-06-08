@@ -56,6 +56,8 @@ import {
   onAddReplyFail,
   onAddCommentSuccess,
   onAddCommentFail,
+  addmilestoneSuccess,
+  addmilestoneFail,
 } from "./actions"
 
 //Include Both Helper File with needed methods
@@ -200,9 +202,9 @@ function* onAddNewMilestone({ payload: order }) {
     console.log(order, "onAddNewOrder1")
     const response = yield call(addNewMilestone, order)
     console.log(response, "onAddNewOrder response")
-    yield put(addOrderSuccess(response))
+    yield put(addmilestoneSuccess(response))
   } catch (error) {
-    yield put(addOrderFail(error))
+    yield put(addmilestoneFail(error))
   }
 }
 

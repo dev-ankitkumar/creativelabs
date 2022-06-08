@@ -91,6 +91,7 @@ const EcommerceAddProduct = () => {
         //   paymentMethod: values["paymentMethod"],
         //   badgeclass: values["badgeclass"],
       }
+      console.log("dispatch triggered")
       // save new order
       dispatch(onAddNewMilestone(newOrder))
       validation.resetForm()
@@ -145,7 +146,13 @@ const EcommerceAddProduct = () => {
                     Fill all information below
                   </CardSubtitle> */}
 
-                  <Form>
+                  <Form
+                    onSubmit={e => {
+                      e.preventDefault()
+                      validation.handleSubmit()
+                      return false
+                    }}
+                  >
                     <Row>
                       <Col sm="6">
                         <div className="mb-3">

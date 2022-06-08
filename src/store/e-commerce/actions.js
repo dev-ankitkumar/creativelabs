@@ -51,6 +51,8 @@ import {
   ON_ADD_COMMENT_SUCCESS,
   ON_ADD_COMMENT_FAIL,
   ADD_NEW_MILESTONE,
+  ADD_MILESTONE_FAIL,
+  ADD_MILESTONE_SUCCESS,
 } from "./actionTypes"
 
 export const getProducts = () => ({
@@ -100,13 +102,23 @@ export const addNewOrder = order => ({
   type: ADD_NEW_ORDER,
   payload: order,
 })
-export const addNewMilestone = order => ({
-  type: ADD_NEW_MILESTONE,
-  payload: order,
-})
+
 export const addOrderSuccess = order => ({
   type: ADD_ORDER_SUCCESS,
   payload: order,
+})
+// milestone
+export const addNewMilestone = milestone => ({
+  type: ADD_NEW_MILESTONE,
+  payload: milestone,
+})
+export const addmilestoneSuccess = order => ({
+  type: ADD_MILESTONE_SUCCESS,
+  payload: order,
+})
+export const addmilestoneFail = error => ({
+  type: ADD_MILESTONE_FAIL,
+  payload: error,
 })
 
 export const addOrderFail = error => ({
