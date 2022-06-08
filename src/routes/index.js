@@ -27,6 +27,7 @@ import EmailVerification from "../pages/AuthenticationInner/auth-email-verificat
 import EmailVerification2 from "../pages/AuthenticationInner/auth-email-verification-2"
 import TwostepVerification from "../pages/AuthenticationInner/auth-two-step-verification"
 import TwostepVerification2 from "../pages/AuthenticationInner/auth-two-step-verification-2"
+import EcommerceAddProduct from "../pages/Ecommerce/EcommerceAddProduct"
 
 //Crypto
 import CryptoIcoLanding from "../pages/Crypto/CryptoIcoLanding/index"
@@ -50,8 +51,8 @@ const authProtectedRoutes = [
   // projects
 
   { path: "/projects", component: Projects },
-  
-
+  { path: "/add-milestone", component: EcommerceAddProduct },
+  { path: "/add-sprint", component: EcommerceAddProduct },
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
@@ -68,7 +69,6 @@ const publicRoutes = [
   { path: "/pages-404", component: Pages404 },
   { path: "/pages-500", component: Pages500 },
   { path: "/crypto-ico-landing", component: CryptoIcoLanding },
-
 
   // Authentication Inner
   { path: "/pages-login", component: Login1 },

@@ -98,8 +98,9 @@ function* fetchProductDetail({ productId }) {
 
 function* fetchOrders() {
   try {
+    console.log("Get order hit1")
     const response = yield call(getOrders)
-    console.log("get orderes Clicked", response.result)
+    // console.log("get orderes Clicked", response.result)
     yield put(getOrdersSuccess(response.result))
   } catch (error) {
     yield put(getOrdersFail(error))
@@ -163,6 +164,7 @@ function* fetchShops() {
 
 function* onUpdateOrder({ payload: order }) {
   try {
+    console.log("update order", order)
     const response = yield call(updateOrder, order)
     yield put(updateOrderSuccess(response))
   } catch (error) {
@@ -183,7 +185,9 @@ function* onDeleteOrder({ payload: order }) {
 
 function* onAddNewOrder({ payload: order }) {
   try {
+    console.log(order, "onAddNewOrder1")
     const response = yield call(addNewOrder, order)
+    console.log(response, "onAddNewOrder response")
     yield put(addOrderSuccess(response))
   } catch (error) {
     yield put(addOrderFail(error))

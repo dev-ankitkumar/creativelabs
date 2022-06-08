@@ -60,14 +60,14 @@ const EcommerceOrders = props => {
     enableReinitialize: true,
 
     initialValues: {
-      projectName: (order && order.projectName) || "",
-      fixedCost: (order && order.fixedCost) || "",
-      shortDescription: (order && order.shortDescription) || "",
+      name: (order && order.name) || "",
+      tm_or_fixed_cost: (order && order.tm_or_fixed_cost) || "True",
+      short_description: (order && order.short_description) || "",
       deadline: (order && order.deadline) || "",
-      techStack: (order && order.techStack) || "",
-      noOfResourcesPlanned: (order && order.noOfResourcesPlanned) || "",
-      spocManager: (order && order.spocManager) || "",
-      pinToDashboard: (order && order.pinToDashboard) || "",
+      tech_stack: (order && order.tech_stack) || "",
+      no_of_resource: (order && order.no_of_resource) || "",
+      spoc_manager: (order && order.spoc_manager) || "",
+      pin_to_dashboard: (order && order.pin_to_dashboard) || "True",
 
       //   orderId: (order && order.orderId) || "",
       //   billingName: (order && order.billingName) || "",
@@ -78,11 +78,16 @@ const EcommerceOrders = props => {
       //   paymentMethod: (order && order.paymentMethod) || "Mastercard",
     },
     validationSchema: Yup.object({
-      projectName: Yup.string().required("Please Enter Your Project Name"),
-      techStack: Yup.string().required(
+      name: Yup.string().required("Please Enter Your Project Name"),
+      tech_stack: Yup.string().required(
         "Please Enter the technology required for project"
       ),
-      spocManager: Yup.string().required("Please Enter the SPOC/Manager"),
+      deadline: Yup.string().required("Please Enter the Deadline"),
+      spoc_manager: Yup.string().required("Please Enter the SPOC/Manager"),
+      no_of_resource: Yup.number()
+        .min(1, "Min value 1")
+        .required("Please Enter the No of resources"),
+      short_description: Yup.string().required("Please Enter the Description"),
       //   orderId: Yup.string().required("Please Enter Your Order Id"),
       //   billingName: Yup.string().required("Please Enter Your Billing Name"),
       //   orderdate: Yup.string().required("Please Enter Your Order Date"),
@@ -97,14 +102,14 @@ const EcommerceOrders = props => {
         console.log("edittriggered", values, "triggered edittttttttttttttttttt")
         const updateOrder = {
           id: order ? order.id : 0,
-          projectName: values.projectName,
-          fixedCost: values.fixedCost,
-          shortDescription: values.shortDescription,
+          name: values.name,
+          tm_or_fixed_cost: values.tm_or_fixed_cost,
+          short_description: values.short_description,
           deadline: values.deadline,
-          techStack: values.techStack,
-          noOfResourcesPlanned: values.noOfResourcesPlanned,
-          spocManager: values.spocManager,
-          pinToDashboard: values.pinToDashboard,
+          tech_stack: values.tech_stack,
+          no_of_resource: values.no_of_resource,
+          spoc_manager: values.spoc_manager,
+          pin_to_dashboard: values.pin_to_dashboard,
           //   orderId: values.orderId,
           //   billingName: values.billingName,
           //   orderdate: values.orderdate,
@@ -118,15 +123,14 @@ const EcommerceOrders = props => {
         validation.resetForm()
       } else {
         const newOrder = {
-          id: Math.floor(Math.random() * (30 - 20)) + 20,
-          projectName: values["projectName"],
-          fixedCost: values["fixedCost"],
-          shortDescription: values["shortDescription"],
+          name: values["name"],
+          tm_or_fixed_cost: values["tm_or_fixed_cost"] == "True" ? 1 : 0,
+          short_description: values["short_description"],
           deadline: values["deadline"],
-          techStack: values["techStack"],
-          noOfResourcesPlanned: values["noOfResourcesPlanned"],
-          spocManager: values["spocManager"],
-          pinToDashboard: values["pinToDashboard"],
+          tech_stack: values["tech_stack"],
+          no_of_resource: values["no_of_resource"],
+          spoc_manager: values["spoc_manager"],
+          pin_to_dashboard: values["pin_to_dashboard"] == "True" ? 1 : 0,
           //   orderId: values["orderId"],
           //   billingName: values["billingName"],
           //   orderdate: values["orderdate"],
@@ -172,23 +176,23 @@ const EcommerceOrders = props => {
 
   const EcommerceOrderColumns = toggleModal => [
     {
-      dataField: "projectName",
+      dataField: "name",
       text: "Project Name",
       sort: true,
       // eslint-disable-next-line react/display-name
       formatter: (cellContent, row) => (
         <Link to="#" className="text-body fw-bold">
-          {row.projectName}
+          {row.name}
         </Link>
       ),
     },
     {
-      dataField: "fixedCost",
+      dataField: "tm_or_fixed_cost",
       text: "Fixed Cost",
       sort: true,
     },
     {
-      dataField: "shortDescription",
+      dataField: "short_description",
       text: "Short Description",
       sort: true,
       // eslint-disable-next-line react/display-name
@@ -201,22 +205,22 @@ const EcommerceOrders = props => {
       formatter: (cellContent, row) => handleValidDate(row.deadline),
     },
     {
-      dataField: "techStack",
+      dataField: "tech_stack",
       text: "Tech Stack",
       sort: true,
     },
     {
-      dataField: "noOfResourcesPlanned",
+      dataField: "no_of_resource",
       text: "No of resources Planned",
       sort: true,
     },
     {
-      dataField: "spocManager",
+      dataField: "spoc_manager",
       text: "SPOC/Manager",
       sort: true,
     },
     {
-      dataField: "pinToDashboard",
+      dataField: "pin_to_dashboard",
       text: "Pin To Dashboard",
       sort: true,
     },
@@ -256,7 +260,6 @@ const EcommerceOrders = props => {
 
   useEffect(() => {
     if (orders && !orders.length) {
-      console.log("dispatch", dispatch(onGetOrders()))
       dispatch(onGetOrders())
     }
   }, [dispatch, orders])
@@ -283,17 +286,18 @@ const EcommerceOrders = props => {
 
   const handleOrderClick = arg => {
     const order = arg
-
+    console.log(arg, "arg")
+    console.log(order.id, "order id")
     setOrder({
       id: order.id,
-      projectName: order.projectName,
-      fixedCost: order.fixedCost,
-      shortDescription: order.shortDescription,
+      name: order.name,
+      tm_or_fixed_cost: order.tm_or_fixed_cost,
+      short_description: order.short_description,
       deadline: order.deadline,
-      techStack: order.techStack,
-      noOfResourcesPlanned: order.noOfResourcesPlanned,
-      spocManager: order.spocManager,
-      pinToDashboard: order.pinToDashboard,
+      tech_stack: order.tech_stack,
+      no_of_resource: order.no_of_resource,
+      spoc_manager: order.spoc_manager,
+      pin_to_dashboard: order.pin_to_dashboard,
     })
 
     setIsEdit(true)
@@ -342,7 +346,7 @@ const EcommerceOrders = props => {
 
   const defaultSorted = [
     {
-      dataField: "projectName",
+      dataField: "name",
       order: "desc",
     },
   ]
@@ -441,26 +445,24 @@ const EcommerceOrders = props => {
                                               Project Name
                                             </Label>
                                             <Input
-                                              name="projectName"
+                                              name="name"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.projectName ||
-                                                ""
+                                                validation.values.name || ""
                                               }
                                               invalid={
-                                                validation.touched
-                                                  .projectName &&
-                                                validation.errors.projectName
+                                                validation.touched.name &&
+                                                validation.errors.name
                                                   ? true
                                                   : false
                                               }
                                             />
-                                            {validation.touched.projectName &&
-                                            validation.errors.projectName ? (
+                                            {validation.touched.name &&
+                                            validation.errors.name ? (
                                               <FormFeedback type="invalid">
-                                                {validation.errors.projectName}
+                                                {validation.errors.name}
                                               </FormFeedback>
                                             ) : null}
                                           </div>
@@ -470,14 +472,14 @@ const EcommerceOrders = props => {
                                               Fixed Cost
                                             </Label>
                                             <Input
-                                              name="fixedCost"
+                                              name="tm_or_fixed_cost"
                                               type="select"
                                               className="form-select"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.fixedCost ||
-                                                ""
+                                                validation.values
+                                                  .tm_or_fixed_cost || "True"
                                               }
                                             >
                                               <option>True</option>
@@ -491,21 +493,29 @@ const EcommerceOrders = props => {
                                             </Label>
                                             <textarea
                                               className="form-control"
-                                              id="shortDescription"
+                                              id="short_description"
+                                              // name="short_description"
                                               placeholder="Short Description about project..."
                                               rows="3"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
-                                              value={
-                                                validation.values
-                                                  .shortDescription || ""
-                                              }
                                             ></textarea>
+                                            {validation.touched
+                                              .short_description &&
+                                            validation.errors
+                                              .short_description ? (
+                                              <FormFeedback type="invalid">
+                                                {
+                                                  validation.errors
+                                                    .short_description
+                                                }
+                                              </FormFeedback>
+                                            ) : null}
                                           </div>
 
                                           <div className="mb-3">
                                             <Label className="form-label">
-                                              Deadline(if any)
+                                              Deadline
                                             </Label>
                                             <Input
                                               name="deadline"
@@ -516,7 +526,19 @@ const EcommerceOrders = props => {
                                               value={
                                                 validation.values.deadline || ""
                                               }
+                                              invalid={
+                                                validation.touched.deadline &&
+                                                validation.errors.deadline
+                                                  ? true
+                                                  : false
+                                              }
                                             />
+                                            {validation.touched.deadline &&
+                                            validation.errors.deadline ? (
+                                              <FormFeedback type="invalid">
+                                                {validation.errors.deadline}
+                                              </FormFeedback>
+                                            ) : null}
                                           </div>
 
                                           <div className="mb-3">
@@ -524,25 +546,25 @@ const EcommerceOrders = props => {
                                               Tech Stack
                                             </Label>
                                             <Input
-                                              name="techStack"
+                                              name="tech_stack"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.techStack ||
+                                                validation.values.tech_stack ||
                                                 ""
                                               }
                                               invalid={
-                                                validation.touched.techStack &&
-                                                validation.errors.techStack
+                                                validation.touched.tech_stack &&
+                                                validation.errors.tech_stack
                                                   ? true
                                                   : false
                                               }
                                             />
-                                            {validation.touched.techStack &&
-                                            validation.errors.techStack ? (
+                                            {validation.touched.tech_stack &&
+                                            validation.errors.tech_stack ? (
                                               <FormFeedback type="invalid">
-                                                {validation.errors.techStack}
+                                                {validation.errors.tech_stack}
                                               </FormFeedback>
                                             ) : null}
                                           </div>
@@ -552,15 +574,32 @@ const EcommerceOrders = props => {
                                               No of Resources Planned
                                             </Label>
                                             <Input
-                                              name="noOfResourcesPlanned"
+                                              name="no_of_resource"
                                               type="number"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
                                                 validation.values
-                                                  .noOfResourcesPlanned || ""
+                                                  .no_of_resource || ""
+                                              }
+                                              invalid={
+                                                validation.touched
+                                                  .no_of_resource &&
+                                                validation.errors.no_of_resource
+                                                  ? true
+                                                  : false
                                               }
                                             />
+                                            {validation.touched
+                                              .no_of_resource &&
+                                            validation.errors.no_of_resource ? (
+                                              <FormFeedback type="invalid">
+                                                {
+                                                  validation.errors
+                                                    .no_of_resource
+                                                }
+                                              </FormFeedback>
+                                            ) : null}
                                           </div>
 
                                           <div className="mb-3">
@@ -568,26 +607,26 @@ const EcommerceOrders = props => {
                                               SPOC/Manager
                                             </Label>
                                             <Input
-                                              name="spocManager"
+                                              name="spoc_manager"
                                               type="text"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
-                                                validation.values.spocManager ||
-                                                ""
+                                                validation.values
+                                                  .spoc_manager || ""
                                               }
                                               invalid={
                                                 validation.touched
-                                                  .spocManager &&
-                                                validation.errors.spocManager
+                                                  .spoc_manager &&
+                                                validation.errors.spoc_manager
                                                   ? true
                                                   : false
                                               }
                                             />
-                                            {validation.touched.spocManager &&
-                                            validation.errors.spocManager ? (
+                                            {validation.touched.spoc_manager &&
+                                            validation.errors.spoc_manager ? (
                                               <FormFeedback type="invalid">
-                                                {validation.errors.spocManager}
+                                                {validation.errors.spoc_manager}
                                               </FormFeedback>
                                             ) : null}
                                           </div>
@@ -597,14 +636,14 @@ const EcommerceOrders = props => {
                                               Pin to Dashboard
                                             </Label>
                                             <Input
-                                              name="pinToDashboard"
+                                              name="pin_to_dashboard"
                                               type="select"
                                               className="form-select"
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                               value={
                                                 validation.values
-                                                  .pinToDashboard || ""
+                                                  .pin_to_dashboard || "True"
                                               }
                                             >
                                               <option>True</option>

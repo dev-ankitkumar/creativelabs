@@ -22,7 +22,6 @@ export async function get(url, tokenCheck) {
   const config = {
     headers: { Authorization: `Bearer ${tokenCheck}` },
   }
-  console.log(config, "config")
   if (tokenCheck) {
     return await axiosApi.get(url, config).then(response => response.data)
   } else {
@@ -30,14 +29,29 @@ export async function get(url, tokenCheck) {
   }
 }
 
-export async function post(url, data, config = {}) {
+export async function post(url, data, tokenCheck) {
+  const config = {
+    headers: { Authorization: `Bearer ${tokenCheck}` },
+  }
+
   return axiosApi
     .post(url, { ...data }, { ...config })
     .then(response => response.data)
 }
 
-export async function put(url, data, config = {}) {
-  return axiosApi
+export async function put(url, data, tokenCheck) {
+  const config = {
+    headers: { Authorization: `Bearer ${tokenCheck}` },
+  }
+  console.log("url", url)
+  console.log("data", data)
+  console.log(
+    "axios",
+    axiosApi
+      .put(url, { ...data }, { ...config })
+      .then(response => response.data)
+  )
+  return await axiosApi
     .put(url, { ...data }, { ...config })
     .then(response => response.data)
 }
