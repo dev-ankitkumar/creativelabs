@@ -17,13 +17,17 @@ import {
   Row,
   FormFeedback,
 } from "reactstrap"
+
 import Select from "react-select"
 import Dropzone from "react-dropzone"
 import { useFormik } from "formik"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-
+import { addNewMilestone as onAddNewMilestone } from "store/actions"
+//redux
+import { useSelector, useDispatch } from "react-redux"
 const EcommerceAddProduct = () => {
+  const dispatch = useDispatch()
   const [selectedFiles, setselectedFiles] = useState([])
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
@@ -88,7 +92,7 @@ const EcommerceAddProduct = () => {
         //   badgeclass: values["badgeclass"],
       }
       // save new order
-      dispatch(onAddNewOrder(newOrder))
+      dispatch(onAddNewMilestone(newOrder))
       validation.resetForm()
     },
   })

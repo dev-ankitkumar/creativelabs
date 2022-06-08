@@ -9,6 +9,7 @@ import {
   GET_PRODUCTS,
   GET_SHOPS,
   ADD_NEW_ORDER,
+  ADD_NEW_MILESTONE,
   DELETE_ORDER,
   UPDATE_ORDER,
   ADD_NEW_CUSTOMER,
@@ -66,6 +67,7 @@ import {
   getShops,
   getProductDetail,
   addNewOrder,
+  addNewMilestone,
   updateOrder,
   deleteOrder,
   addNewCustomer,
@@ -193,6 +195,16 @@ function* onAddNewOrder({ payload: order }) {
     yield put(addOrderFail(error))
   }
 }
+function* onAddNewMilestone({ payload: order }) {
+  try {
+    console.log(order, "onAddNewOrder1")
+    const response = yield call(addNewMilestone, order)
+    console.log(response, "onAddNewOrder response")
+    yield put(addOrderSuccess(response))
+  } catch (error) {
+    yield put(addOrderFail(error))
+  }
+}
 
 function* getProductComents() {
   try {
@@ -253,6 +265,7 @@ function* ecommerceSaga() {
   yield takeEvery(DELETE_CUSTOMER, onDeleteCustomer)
   yield takeEvery(GET_SHOPS, fetchShops)
   yield takeEvery(ADD_NEW_ORDER, onAddNewOrder)
+  yield takeEvery(ADD_NEW_MILESTONE, onAddNewMilestone)
   yield takeEvery(UPDATE_ORDER, onUpdateOrder)
   yield takeEvery(DELETE_ORDER, onDeleteOrder)
   yield takeEvery(GET_PRODUCT_COMMENTS, getProductComents)

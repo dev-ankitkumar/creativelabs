@@ -1,4 +1,5 @@
 import axios from "axios"
+import { localeData } from "moment"
 import { del, get, post, put } from "./api_helper"
 import * as url from "./url_helper"
 
@@ -151,8 +152,10 @@ export const getOrders = () => get(url.GET_ORDERS, LocalData)
 // add order
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order, LocalData)
 
+export const addNewMilestone = order =>
+  post(url.ADD_NEW_MILESTONE, order, LocalData)
 // update order
-export const updateOrder = order => put(url.UPDATE_ORDER, order, LocalData)
+export const updateOrder = order => post(url.UPDATE_ORDER, order, LocalData)
 
 // delete order
 export const deleteOrder = order =>

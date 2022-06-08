@@ -97,6 +97,7 @@ const EcommerceOrders = props => {
       //   paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
     }),
     onSubmit: values => {
+      console.log(values.deadline, "deadlinesssssssssssssssssssssssss")
       // console.log(values,"valuessssssssssssssssssssssssssssssssssss")
       if (isEdit) {
         console.log("edittriggered", values, "triggered edittttttttttttttttttt")
@@ -286,14 +287,14 @@ const EcommerceOrders = props => {
 
   const handleOrderClick = arg => {
     const order = arg
-    console.log(arg, "arg")
-    console.log(order.id, "order id")
+    // console.log(arg, "arg")
+    // console.log(order.id, "order id")
     setOrder({
       id: order.id,
       name: order.name,
       tm_or_fixed_cost: order.tm_or_fixed_cost,
       short_description: order.short_description,
-      deadline: order.deadline,
+      deadline: moment(new Date(order.deadline)).format("YYYY-MM-DD"),
       tech_stack: order.tech_stack,
       no_of_resource: order.no_of_resource,
       spoc_manager: order.spoc_manager,
@@ -494,9 +495,13 @@ const EcommerceOrders = props => {
                                             <textarea
                                               className="form-control"
                                               id="short_description"
-                                              // name="short_description"
+                                              name="short_description"
                                               placeholder="Short Description about project..."
                                               rows="3"
+                                              value={
+                                                validation.values
+                                                  .short_description || ""
+                                              }
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                             ></textarea>

@@ -47,10 +47,10 @@ import {
   ON_ADD_REPLY,
   ON_ADD_REPLY_SUCCESS,
   ON_ADD_REPLY_FAIL,
-
   ON_ADD_COMMENT,
   ON_ADD_COMMENT_SUCCESS,
-  ON_ADD_COMMENT_FAIL
+  ON_ADD_COMMENT_FAIL,
+  ADD_NEW_MILESTONE,
 } from "./actionTypes"
 
 export const getProducts = () => ({
@@ -100,7 +100,10 @@ export const addNewOrder = order => ({
   type: ADD_NEW_ORDER,
   payload: order,
 })
-
+export const addNewMilestone = order => ({
+  type: ADD_NEW_MILESTONE,
+  payload: order,
+})
 export const addOrderSuccess = order => ({
   type: ADD_ORDER_SUCCESS,
   payload: order,

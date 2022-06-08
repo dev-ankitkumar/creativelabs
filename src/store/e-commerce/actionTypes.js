@@ -41,6 +41,12 @@ export const ADD_ORDER_SUCCESS = "ADD_ORDER_SUCCESS"
 export const ADD_ORDER_FAIL = "ADD_ORDER_FAIL"
 
 /**
+ * add new milestone
+ *
+ */
+
+export const ADD_NEW_MILESTONE = "ADD_NEW_MILESTONE"
+/**
  * Edit ORDER
  */
 export const UPDATE_ORDER = "UPDATE_ORDER"

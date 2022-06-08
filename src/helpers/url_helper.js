@@ -56,6 +56,8 @@ export const ADD_NEW_ORDER = "/project-create"
 export const UPDATE_ORDER = "/project-create"
 export const DELETE_ORDER = "/delete/order"
 
+//milestone
+export const ADD_NEW_MILESTONE = "milestone-create"
 //CART DATA
 export const GET_CART_DATA = "/cart"
 

@@ -45,6 +45,7 @@ export async function put(url, data, tokenCheck) {
   }
   console.log("url", url)
   console.log("data", data)
+  console.log("config", config)
   console.log(
     "axios",
     axiosApi
