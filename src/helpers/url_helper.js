@@ -53,7 +53,7 @@ export const ADD_MESSAGE = "/add/messages"
 //ORDERS
 export const GET_ORDERS = "/projects"
 export const ADD_NEW_ORDER = "/project-create"
-export const UPDATE_ORDER = "/update/order"
+export const UPDATE_ORDER = "/project-create"
 export const DELETE_ORDER = "/delete/order"
 
 //CART DATA

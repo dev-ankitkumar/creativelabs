@@ -39,8 +39,19 @@ export async function post(url, data, tokenCheck) {
     .then(response => response.data)
 }
 
-export async function put(url, data, config = {}) {
-  return axiosApi
+export async function put(url, data, tokenCheck) {
+  const config = {
+    headers: { Authorization: `Bearer ${tokenCheck}` },
+  }
+  console.log("url", url)
+  console.log("data", data)
+  console.log(
+    "axios",
+    axiosApi
+      .put(url, { ...data }, { ...config })
+      .then(response => response.data)
+  )
+  return await axiosApi
     .put(url, { ...data }, { ...config })
     .then(response => response.data)
 }

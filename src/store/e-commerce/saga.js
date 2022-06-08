@@ -164,6 +164,7 @@ function* fetchShops() {
 
 function* onUpdateOrder({ payload: order }) {
   try {
+    console.log("update order", order)
     const response = yield call(updateOrder, order)
     yield put(updateOrderSuccess(response))
   } catch (error) {

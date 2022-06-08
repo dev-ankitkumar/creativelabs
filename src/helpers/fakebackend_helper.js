@@ -152,7 +152,7 @@ export const getOrders = () => get(url.GET_ORDERS, LocalData)
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order, LocalData)
 
 // update order
-export const updateOrder = order => put(url.UPDATE_ORDER, order)
+export const updateOrder = order => put(url.UPDATE_ORDER, order, LocalData)
 
 // delete order
 export const deleteOrder = order =>

@@ -84,7 +84,9 @@ const EcommerceOrders = props => {
       ),
       deadline: Yup.string().required("Please Enter the Deadline"),
       spoc_manager: Yup.string().required("Please Enter the SPOC/Manager"),
-      no_of_resource: Yup.string().required("Please Enter the No of resources"),
+      no_of_resource: Yup.number()
+        .min(1, "Min value 1")
+        .required("Please Enter the No of resources"),
       short_description: Yup.string().required("Please Enter the Description"),
       //   orderId: Yup.string().required("Please Enter Your Order Id"),
       //   billingName: Yup.string().required("Please Enter Your Billing Name"),
@@ -284,7 +286,8 @@ const EcommerceOrders = props => {
 
   const handleOrderClick = arg => {
     const order = arg
-
+    console.log(arg, "arg")
+    console.log(order.id, "order id")
     setOrder({
       id: order.id,
       name: order.name,

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import MetaTags from 'react-meta-tags';
-
+import MetaTags from "react-meta-tags"
+import * as Yup from "yup"
 import {
   Button,
   Card,
@@ -14,31 +14,98 @@ import {
   FormGroup,
   Input,
   Label,
-  Row
+  Row,
+  FormFeedback,
 } from "reactstrap"
 import Select from "react-select"
 import Dropzone from "react-dropzone"
-
+import { useFormik } from "formik"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 
 const EcommerceAddProduct = () => {
   const [selectedFiles, setselectedFiles] = useState([])
+  const validation = useFormik({
+    // enableReinitialize : use this flag when initial values needs to be changed
+    enableReinitialize: true,
 
+    initialValues: {
+      // name: (order && order.name) || "",
+      // tm_or_fixed_cost: (order && order.tm_or_fixed_cost) || "True",
+      // short_description: (order && order.short_description) || "",
+      deadline: "",
+      startdate: "",
+      // tech_stack: (order && order.tech_stack) || "",
+      // no_of_resource: (order && order.no_of_resource) || "",
+      // spoc_manager: (order && order.spoc_manager) || "",
+      // pin_to_dashboard: (order && order.pin_to_dashboard) || "True",
+
+      //   orderId: (order && order.orderId) || "",
+      //   billingName: (order && order.billingName) || "",
+      //   orderdate: (order && order.orderdate) || "",
+      //   total: (order && order.total) || "",
+      //   paymentStatus: (order && order.paymentStatus) || "Paid",
+      //   badgeclass: (order && order.badgeclass) || "success",
+      //   paymentMethod: (order && order.paymentMethod) || "Mastercard",
+    },
+    validationSchema: Yup.object({
+      // name: Yup.string().required("Please Enter Your Project Name"),
+      // tech_stack: Yup.string().required(
+      //   "Please Enter the technology required for project"
+      // ),
+      deadline: Yup.date().required("Please Enter the Deadline"),
+      startdate: Yup.date().required("Please Enter the Start Date"),
+      // spoc_manager: Yup.string().required("Please Enter the SPOC/Manager"),
+      // no_of_resource: Yup.number()
+      //   .min(1, "Min value 1")
+      //   .required("Please Enter the No of resources"),
+      // short_description: Yup.string().required("Please Enter the Description"),
+      //   orderId: Yup.string().required("Please Enter Your Order Id"),
+      //   billingName: Yup.string().required("Please Enter Your Billing Name"),
+      //   orderdate: Yup.string().required("Please Enter Your Order Date"),
+      //   total: Yup.string().required("Total Amount"),
+      //   paymentStatus: Yup.string().required("Please Enter Your Payment Status"),
+      //   badgeclass: Yup.string().required("Please Enter Your Badge Class"),
+      //   paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
+    }),
+    onSubmit: values => {
+      const newOrder = {
+        // name: values["name"],
+        // tm_or_fixed_cost: values["tm_or_fixed_cost"] == "True" ? 1 : 0,
+        // short_description: values["short_description"],
+        deadline: values["deadline"],
+        startdate: values["startdate"],
+        // tech_stack: values["tech_stack"],
+        // no_of_resource: values["no_of_resource"],
+        // spoc_manager: values["spoc_manager"],
+        // pin_to_dashboard: values["pin_to_dashboard"] == "True" ? 1 : 0,
+        //   orderId: values["orderId"],
+        //   billingName: values["billingName"],
+        //   orderdate: values["orderdate"],
+        //   total: values["total"],
+        //   paymentStatus: values["paymentStatus"],
+        //   paymentMethod: values["paymentMethod"],
+        //   badgeclass: values["badgeclass"],
+      }
+      // save new order
+      dispatch(onAddNewOrder(newOrder))
+      validation.resetForm()
+    },
+  })
   const options = [
     { value: "AK", label: "Alaska" },
     { value: "HI", label: "Hawaii" },
     { value: "CA", label: "California" },
     { value: "NV", label: "Nevada" },
     { value: "OR", label: "Oregon" },
-    { value: "WA", label: "Washington" }
+    { value: "WA", label: "Washington" },
   ]
 
   function handleAcceptedFiles(files) {
     files.map(file =>
       Object.assign(file, {
         preview: URL.createObjectURL(file),
-        formattedSize: formatBytes(file.size)
+        formattedSize: formatBytes(file.size),
       })
     )
 
@@ -59,24 +126,34 @@ const EcommerceAddProduct = () => {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Add Product | Skote - React Admin & Dashboard Template</title>
+          <title>Creative Labs MileStone</title>
         </MetaTags>
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Ecommerce" breadcrumbItem="Add Product" />
+          <Breadcrumbs title="Milestone" breadcrumbItem="Add Milestone" />
 
           <Row>
             <Col xs="12">
               <Card>
                 <CardBody>
-                  <CardTitle>Basic Information</CardTitle>
-                  <CardSubtitle className="mb-4">
+                  <CardTitle>Milestone Information</CardTitle>
+                  {/* <CardSubtitle className="mb-4">
                     Fill all information below
-                  </CardSubtitle>
+                  </CardSubtitle> */}
 
                   <Form>
                     <Row>
                       <Col sm="6">
+                        <div className="mb-3">
+                          <Label className="control-label">Title</Label>
+                          <Select
+                            classNamePrefix="select2-selection"
+                            placeholder="Choose..."
+                            title="Country"
+                            options={options}
+                            isMulti
+                          />
+                        </div>
                         <div className="mb-3">
                           <Label htmlFor="productname">Product Name</Label>
                           <Input
@@ -86,7 +163,7 @@ const EcommerceAddProduct = () => {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                           <Label htmlFor="manufacturername">
                             Manufacturer Name
                           </Label>
@@ -107,9 +184,12 @@ const EcommerceAddProduct = () => {
                             type="text"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
+                      </Col>
+
+                      <Col sm="6">
                         <div className="mb-3">
-                          <Label htmlFor="price">Price</Label>
+                          <Label htmlFor="price">No of Sprints</Label>
                           <Input
                             id="price"
                             name="price"
@@ -117,28 +197,62 @@ const EcommerceAddProduct = () => {
                             className="form-control"
                           />
                         </div>
-                      </Col>
-
-                      <Col sm="6">
                         <div className="mb-3">
+                          <Label className="form-label">Deadline</Label>
+                          <Input
+                            name="deadline"
+                            type="date"
+                            // value={orderList.orderdate || ""}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.deadline || ""}
+                            invalid={
+                              validation.touched.deadline &&
+                              validation.errors.deadline
+                                ? true
+                                : false
+                            }
+                          />
+                          {validation.touched.deadline &&
+                          validation.errors.deadline ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.deadline}
+                            </FormFeedback>
+                          ) : null}
+                        </div>
+                        <div className="mb-3">
+                          <Label className="form-label">StartDate</Label>
+                          <Input
+                            name="startdate"
+                            type="date"
+                            // value={orderList.orderdate || ""}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.startdate || ""}
+                            invalid={
+                              validation.touched.startdate &&
+                              validation.errors.startdate
+                                ? true
+                                : false
+                            }
+                          />
+                          {validation.touched.startdate &&
+                          validation.errors.startdate ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.startdate}
+                            </FormFeedback>
+                          ) : null}
+                        </div>
+                        {/* <div className="mb-3">
                           <Label className="control-label">Category</Label>
                           <select className="form-control select2">
                             <option>Select</option>
                             <option value="FA">Fashion</option>
                             <option value="EL">Electronic</option>
                           </select>
-                        </div>
-                        <div className="mb-3">
-                          <Label className="control-label">Features</Label>
-                          <Select
-                            classNamePrefix="select2-selection"
-                            placeholder="Choose..."
-                            title="Country"
-                            options={options}
-                            isMulti
-                          />
-                        </div>
-                        <div className="mb-3">
+                        </div> */}
+
+                        {/* <div className="mb-3">
                           <Label htmlFor="productdesc">
                             Product Description
                           </Label>
@@ -147,30 +261,22 @@ const EcommerceAddProduct = () => {
                             id="productdesc"
                             rows="5"
                           />
-                        </div>
+                        </div> */}
                       </Col>
                     </Row>
                     <div className="d-flex flex-wrap gap-2">
-                      <Button
-                        type="submit"
-                        color="primary"
-                        className="btn "
-                      >
+                      <Button type="submit" color="primary" className="btn ">
                         Save Changes
-                    </Button>
-                      <Button
-                        type="submit"
-                        color="secondary"
-                        className=" "
-                      >
+                      </Button>
+                      <Button type="submit" color="secondary" className=" ">
                         Cancel
-                    </Button>
+                      </Button>
                     </div>
                   </Form>
                 </CardBody>
               </Card>
 
-              <Card>
+              {/* <Card>
                 <CardBody>
                   <CardTitle className="mb-3">Product Images</CardTitle>
                   <Form>
@@ -233,9 +339,9 @@ const EcommerceAddProduct = () => {
                     </div>
                   </Form>
                 </CardBody>
-              </Card>
+              </Card> */}
 
-              <Card>
+              {/* <Card>
                 <CardBody>
                   <CardTitle>Meta Data</CardTitle>
                   <CardSubtitle className="mb-3">
@@ -296,7 +402,7 @@ const EcommerceAddProduct = () => {
                     </div>
                   </Form>
                 </CardBody>
-              </Card>
+              </Card> */}
             </Col>
           </Row>
         </Container>
