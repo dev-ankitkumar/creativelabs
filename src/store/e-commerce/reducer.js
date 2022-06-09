@@ -17,6 +17,8 @@ import {
   GET_SHOPS_SUCCESS,
   GET_PRODUCT_DETAIL_SUCCESS,
   GET_PRODUCT_DETAIL_FAIL,
+  ADD_MILESTONE_SUCCESS,
+  ADD_MILESTONE_FAIL,
   ADD_ORDER_SUCCESS,
   ADD_ORDER_FAIL,
   UPDATE_ORDER_SUCCESS,
@@ -29,18 +31,19 @@ import {
   ON_LIKE_REPLY_SUCCESS,
   ON_ADD_REPLY_SUCCESS,
   ON_ADD_COMMENT_SUCCESS,
-} from "./actionTypes";
+} from "./actionTypes"
 
 const INIT_STATE = {
   products: [],
   product: {},
   orders: [],
+  milestone: [],
   cartData: {},
   customers: [],
   shops: [],
   error: {},
   productComments: [],
-};
+}
 
 const Ecommerce = (state = INIT_STATE, action) => {
   switch (action.type) {
@@ -48,115 +51,128 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         products: action.payload,
-      };
+      }
 
     case GET_PRODUCTS_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case GET_PRODUCT_DETAIL_SUCCESS:
       return {
         ...state,
         product: action.payload,
-      };
+      }
 
     case GET_PRODUCT_DETAIL_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case GET_ORDERS_SUCCESS:
       return {
         ...state,
         orders: action.payload,
-      };
+      }
 
     case GET_ORDERS_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case ADD_ORDER_SUCCESS:
       return {
         ...state,
-        orders: [...state.orders, action.payload],
-      };
+        orders: [...state.orders, action.payload.result],
+      }
 
     case ADD_ORDER_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
+    case ADD_MILESTONE_SUCCESS:
+      return {
+        ...state,
+        milestone: [...state.milestone, action.payload],
+      }
+
+    case ADD_MILESTONE_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      }
 
     case UPDATE_ORDER_SUCCESS:
       return {
         ...state,
         orders: state.orders.map(order =>
-          order.id === action.payload.id.toString()
-            ? { order, ...action.payload }
+          // console.log(order.id, "order.id")
+          // console.log(action.payload.result.id.toString(), "action payload")
+          order.id === action.payload.result.id
+            ? { order, ...action.payload.result }
             : order
         ),
-      };
+      }
 
     case UPDATE_ORDER_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case DELETE_ORDER_SUCCESS:
       return {
         ...state,
         orders: state.orders.filter(
-          order => order.id.toString() !== action.payload.id.toString()
+          order => order.id.toString() !== action.payload.toString()
         ),
-      };
+      }
 
     case DELETE_ORDER_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case GET_CART_DATA_SUCCESS:
       return {
         ...state,
         cartData: action.payload,
-      };
+      }
 
     case GET_CART_DATA_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case GET_CUSTOMERS_SUCCESS:
       return {
         ...state,
         customers: action.payload,
-      };
+      }
 
     case GET_CUSTOMERS_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case ADD_CUSTOMER_SUCCESS:
       return {
         ...state,
         customers: [...state.customers, action.payload],
-      };
+      }
 
     case ADD_CUSTOMER_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case UPDATE_CUSTOMER_SUCCESS:
       return {
@@ -166,13 +182,13 @@ const Ecommerce = (state = INIT_STATE, action) => {
             ? { customer, ...action.payload }
             : customer
         ),
-      };
+      }
 
     case UPDATE_CUSTOMER_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case DELETE_CUSTOMER_SUCCESS:
       return {
@@ -180,25 +196,25 @@ const Ecommerce = (state = INIT_STATE, action) => {
         customers: state.customers.filter(
           customer => customer.id.toString() !== action.payload.id.toString()
         ),
-      };
+      }
 
     case DELETE_CUSTOMER_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case GET_SHOPS_SUCCESS:
       return {
         ...state,
         shops: action.payload,
-      };
+      }
 
     case GET_SHOPS_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     case GET_PRODUCT_COMMENTS_SUCCESS:
     case ON_LIKE_COMMENT_SUCCESS:
@@ -208,17 +224,17 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         productComments: action.payload,
-      };
+      }
 
     case GET_PRODUCT_COMMENTS_FAIL:
       return {
         ...state,
         error: action.payload,
-      };
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default Ecommerce;
+export default Ecommerce

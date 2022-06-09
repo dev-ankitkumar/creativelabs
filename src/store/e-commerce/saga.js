@@ -9,6 +9,7 @@ import {
   GET_PRODUCTS,
   GET_SHOPS,
   ADD_NEW_ORDER,
+  ADD_NEW_MILESTONE,
   DELETE_ORDER,
   UPDATE_ORDER,
   ADD_NEW_CUSTOMER,
@@ -55,6 +56,8 @@ import {
   onAddReplyFail,
   onAddCommentSuccess,
   onAddCommentFail,
+  addmilestoneSuccess,
+  addmilestoneFail,
 } from "./actions"
 
 //Include Both Helper File with needed methods
@@ -66,6 +69,7 @@ import {
   getShops,
   getProductDetail,
   addNewOrder,
+  addNewMilestone,
   updateOrder,
   deleteOrder,
   addNewCustomer,
@@ -164,7 +168,6 @@ function* fetchShops() {
 
 function* onUpdateOrder({ payload: order }) {
   try {
-    console.log("update order", order)
     const response = yield call(updateOrder, order)
     yield put(updateOrderSuccess(response))
   } catch (error) {
@@ -175,8 +178,10 @@ function* onUpdateOrder({ payload: order }) {
 function* onDeleteOrder({ payload: order }) {
   try {
     const response = yield call(deleteOrder, order)
-    console.log("response", response)
-    yield put(deleteOrderSuccess(response))
+    if (response.message == "success") {
+      console.log("success", order.id)
+      yield put(deleteOrderSuccess(order.id))
+    }
   } catch (error) {
     console.log("error", error)
     yield put(deleteOrderFail(error))
@@ -187,10 +192,20 @@ function* onAddNewOrder({ payload: order }) {
   try {
     console.log(order, "onAddNewOrder1")
     const response = yield call(addNewOrder, order)
-    console.log(response, "onAddNewOrder response")
+    // console.log(response, "onAddNewOrder response")
     yield put(addOrderSuccess(response))
   } catch (error) {
     yield put(addOrderFail(error))
+  }
+}
+function* onAddNewMilestone({ payload: milestone }) {
+  try {
+    console.log(milestone, "onAddNewOrder1")
+    const response = yield call(addNewMilestone, milestone)
+    console.log(response, "onAddNewOrder response")
+    yield put(addmilestoneSuccess(response))
+  } catch (error) {
+    yield put(addmilestoneFail(error))
   }
 }
 
@@ -253,6 +268,7 @@ function* ecommerceSaga() {
   yield takeEvery(DELETE_CUSTOMER, onDeleteCustomer)
   yield takeEvery(GET_SHOPS, fetchShops)
   yield takeEvery(ADD_NEW_ORDER, onAddNewOrder)
+  yield takeEvery(ADD_NEW_MILESTONE, onAddNewMilestone)
   yield takeEvery(UPDATE_ORDER, onUpdateOrder)
   yield takeEvery(DELETE_ORDER, onDeleteOrder)
   yield takeEvery(GET_PRODUCT_COMMENTS, getProductComents)

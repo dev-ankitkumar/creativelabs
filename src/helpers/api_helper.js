@@ -43,21 +43,17 @@ export async function put(url, data, tokenCheck) {
   const config = {
     headers: { Authorization: `Bearer ${tokenCheck}` },
   }
-  console.log("url", url)
-  console.log("data", data)
-  console.log(
-    "axios",
-    axiosApi
-      .put(url, { ...data }, { ...config })
-      .then(response => response.data)
-  )
+
   return await axiosApi
     .put(url, { ...data }, { ...config })
     .then(response => response.data)
 }
 
-export async function del(url, config = {}) {
+export async function del(url, id, tokenCheck) {
+  const config = {
+    headers: { Authorization: `Bearer ${tokenCheck}` },
+  }
   return await axiosApi
-    .delete(url, { ...config })
+    .get(url + `/${id}`, { ...config })
     .then(response => response.data)
 }

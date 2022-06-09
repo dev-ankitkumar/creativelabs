@@ -32,7 +32,7 @@ Authmiddleware.propTypes = {
   isAuthProtected: PropTypes.bool,
   component: PropTypes.any,
   location: PropTypes.object,
-  layout: PropTypes.any, 
+  layout: PropTypes.any,
 }
 
-export default Authmiddleware;
+export default Authmiddleware
