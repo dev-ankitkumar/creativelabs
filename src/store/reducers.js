@@ -42,6 +42,10 @@ import Dashboard from "./dashboard/reducer";
 //Dasboard saas
 import DashboardSaas from "./dashboard-saas/reducer";
 
+
+import Sprint from "../store/addSprint/reducer"
+import Milestone from "../store/addMilestone/reducer"
+import RiskRegister from "./addRiskRegister/reducer"
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -59,7 +63,10 @@ const rootReducer = combineReducers({
   tasks,
   contacts,
   Dashboard,
-  DashboardSaas
+  DashboardSaas,
+  Sprint,
+  Milestone,
+  RiskRegister
 })
 
 export default rootReducer

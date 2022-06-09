@@ -100,6 +100,12 @@ const postJwtRegister = (url, data) => {
 const onPostMileStone = data => {
   post(baseUrl + "milestone-create", data, LocalData)
 }
+const onPostsprint = data => {
+  post(baseUrl + "sprint-create", data, LocalData)
+}
+const onPostRiskRegister = data => {
+  post(baseUrl + "risk-create", data, LocalData)
+}
 // Login Method
 const postJwtLogin = data => post(url.POST_FAKE_JWT_LOGIN, data)
 
@@ -308,4 +314,6 @@ export {
   onAddReply,
   onAddComment,
   onPostMileStone,
+  onPostsprint,
+  onPostRiskRegister
 }

@@ -7,7 +7,7 @@ import logolight from "../../../../assets/images/logo-light.png"
 const FooterLink = () => {
   return (
     <React.Fragment>
-      <Row>
+      {/* <Row>
         <Col lg="6">
           <div className="mb-4">
             <img src={logolight} alt="" height="20" />
@@ -21,7 +21,7 @@ const FooterLink = () => {
             person, it will seem like simplified English, as a skeptical
           </p>
         </Col>
-      </Row>
+      </Row> */}
     </React.Fragment>
   )
 }
