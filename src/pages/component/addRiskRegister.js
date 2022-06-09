@@ -34,7 +34,6 @@ const RiskRegister = () => {
   const [sprints, setSprints] = useState("")
 
   const options = [
-    
     { value: "1", label: "Project1" },
     { value: "2", label: "Project2" },
     { value: "3", label: "Project3" },
@@ -46,15 +45,14 @@ const RiskRegister = () => {
   const dispatch = useDispatch()
 
   const data = {
-    project_id: "1",
-    user_id: "2",
-    milestone_id: "1",
-    sprint_id: "2",
-    status: "1",
-    contigency_plan:"Khali hai sbb kuch ",
-    description:"HEllo check ",
-    mitigation_plan:"Test 123 "
-
+    project_id: "",
+    user_id: "",
+    milestone_id: "",
+    sprint_id: "",
+    status: "",
+    contigency_plan: "",
+    description: "",
+    mitigation_plan: "",
   }
 
   function handleSubmit(e) {
@@ -63,17 +61,18 @@ const RiskRegister = () => {
     dispatch(postRisk(data))
   }
 
-
   return (
     <React.Fragment>
-        
       <div className="page-content">
         <MetaTags>
           <title>Creative Labs Risk-Register</title>
         </MetaTags>
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="Risk-Register" breadcrumbItem="Add Risk-Register" />
+          <Breadcrumbs
+            title="Risk-Register"
+            breadcrumbItem="Add Risk-Register"
+          />
 
           <Row>
             <Col xs="12">
@@ -138,22 +137,18 @@ const RiskRegister = () => {
                             type="date"
                             value={startDate}
                             onChange={e => setStartDate(e.target.value)}
-
                           />
                         </div>
                       </Col>
                     </Row>
                     <div className="d-flex flex-wrap gap-2">
                       <Button type="submit" color="primary" className="btn ">
-                        Add  Risk Register 
+                        Add Risk Register
                       </Button>
-
                     </div>
                   </Form>
                 </CardBody>
               </Card>
-
-
             </Col>
           </Row>
         </Container>

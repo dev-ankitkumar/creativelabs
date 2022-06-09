@@ -315,5 +315,5 @@ export {
   onAddComment,
   onPostMileStone,
   onPostsprint,
-  onPostRiskRegister
+  onPostRiskRegister,
 }

@@ -27,6 +27,7 @@ import EmailVerification from "../pages/AuthenticationInner/auth-email-verificat
 import EmailVerification2 from "../pages/AuthenticationInner/auth-email-verification-2"
 import TwostepVerification from "../pages/AuthenticationInner/auth-two-step-verification"
 import TwostepVerification2 from "../pages/AuthenticationInner/auth-two-step-verification-2"
+import EcommerceAddProduct from "../pages/Ecommerce/EcommerceAddProduct"
 import AddMilestone from "../pages/component/AddMilestone"
 import AddSprint from "pages/component/addSprint"
 import RiskRegister from "pages/component/addRiskRegister"
@@ -55,10 +56,18 @@ const authProtectedRoutes = [
   { path: "/add-milestone", component: AddMilestone },
   { path: "/add-sprint", component: AddSprint },
   { path: "/add-risk", component: RiskRegister },
-
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
-  { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
+  {
+    path: "/",
+    exact: true,
+    component: () => <Redirect to="/dashboard" />,
+  },
+  // {
+  //   path: "/",
+  //   exact: true,
+  //   component: () => <Redirect to="/matrics" />,
+  // },
 ]
 
 const publicRoutes = [

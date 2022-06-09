@@ -88,9 +88,9 @@ export const getOrders = () => ({
   type: GET_ORDERS,
 })
 
-export const getOrdersSuccess = orders => ({
+export const getOrdersSuccess = order => ({
   type: GET_ORDERS_SUCCESS,
-  payload: orders,
+  payload: order,
 })
 
 export const getOrdersFail = error => ({

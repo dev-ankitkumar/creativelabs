@@ -41,6 +41,6 @@ export default function* rootSaga() {
     fork(dashboardSaasSaga),
     fork(milestoneSaga),
     fork(SprintSaga),
-    fork(RiskSaga)
+    fork(RiskSaga),
   ])
 }

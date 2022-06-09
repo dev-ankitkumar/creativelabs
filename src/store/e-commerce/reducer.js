@@ -86,7 +86,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
     case ADD_ORDER_SUCCESS:
       return {
         ...state,
-        orders: [...state.orders, action.payload],
+        orders: [...state.orders, action.payload.result],
       }
 
     case ADD_ORDER_FAIL:
@@ -110,8 +110,10 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         orders: state.orders.map(order =>
-          order.id === action.payload.id.toString()
-            ? { order, ...action.payload }
+          // console.log(order.id, "order.id")
+          // console.log(action.payload.result.id.toString(), "action payload")
+          order.id === action.payload.result.id
+            ? { order, ...action.payload.result }
             : order
         ),
       }
@@ -126,7 +128,7 @@ const Ecommerce = (state = INIT_STATE, action) => {
       return {
         ...state,
         orders: state.orders.filter(
-          order => order.id.toString() !== action.payload.id.toString()
+          order => order.id.toString() !== action.payload.toString()
         ),
       }
 

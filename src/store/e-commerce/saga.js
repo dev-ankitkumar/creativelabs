@@ -168,7 +168,6 @@ function* fetchShops() {
 
 function* onUpdateOrder({ payload: order }) {
   try {
-    console.log("update order", order)
     const response = yield call(updateOrder, order)
     yield put(updateOrderSuccess(response))
   } catch (error) {
@@ -177,11 +176,12 @@ function* onUpdateOrder({ payload: order }) {
 }
 
 function* onDeleteOrder({ payload: order }) {
-  console.log("delete api", order)
   try {
     const response = yield call(deleteOrder, order)
-    console.log("response", response)
-    yield put(deleteOrderSuccess(response))
+    if (response.message == "success") {
+      console.log("success", order.id)
+      yield put(deleteOrderSuccess(order.id))
+    }
   } catch (error) {
     console.log("error", error)
     yield put(deleteOrderFail(error))
@@ -192,7 +192,7 @@ function* onAddNewOrder({ payload: order }) {
   try {
     console.log(order, "onAddNewOrder1")
     const response = yield call(addNewOrder, order)
-    console.log(response, "onAddNewOrder response")
+    // console.log(response, "onAddNewOrder response")
     yield put(addOrderSuccess(response))
   } catch (error) {
     yield put(addOrderFail(error))
