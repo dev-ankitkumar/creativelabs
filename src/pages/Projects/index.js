@@ -61,13 +61,13 @@ const EcommerceOrders = props => {
 
     initialValues: {
       name: (order && order.name) || "",
-      tm_or_fixed_cost: (order && order.tm_or_fixed_cost) || "True",
+      tm_or_fixed_cost: (order && order.tm_or_fixed_cost) || "",
       short_description: (order && order.short_description) || "",
       deadline: (order && order.deadline) || "",
       tech_stack: (order && order.tech_stack) || "",
       no_of_resource: (order && order.no_of_resource) || "",
       spoc_manager: (order && order.spoc_manager) || "",
-      pin_to_dashboard: (order && order.pin_to_dashboard) || "True",
+      pin_to_dashboard: (order && order.pin_to_dashboard) || "",
 
       //   orderId: (order && order.orderId) || "",
       //   billingName: (order && order.billingName) || "",
@@ -97,19 +97,22 @@ const EcommerceOrders = props => {
       //   paymentMethod: Yup.string().required("Please Enter Your Payment Method"),
     }),
     onSubmit: values => {
-      // console.log(values,"valuessssssssssssssssssssssssssssssssssss")
+      console.log(values.deadline, "deadlinesssssssssssssssssssssssss")
+      console.log(values, "valuessssssssssssssssssssssssssssssssssss")
+      //1 === true
+      //0 === false
       if (isEdit) {
         console.log("edittriggered", values, "triggered edittttttttttttttttttt")
         const updateOrder = {
           id: order ? order.id : 0,
           name: values.name,
-          tm_or_fixed_cost: values.tm_or_fixed_cost,
+          tm_or_fixed_cost: values.tm_or_fixed_cost == "True" ? 1 : 0,
           short_description: values.short_description,
           deadline: values.deadline,
           tech_stack: values.tech_stack,
           no_of_resource: values.no_of_resource,
           spoc_manager: values.spoc_manager,
-          pin_to_dashboard: values.pin_to_dashboard,
+          pin_to_dashboard: values.pin_to_dashboard == "True" ? 1 : 0,
           //   orderId: values.orderId,
           //   billingName: values.billingName,
           //   orderdate: values.orderdate,
@@ -190,6 +193,19 @@ const EcommerceOrders = props => {
       dataField: "tm_or_fixed_cost",
       text: "Fixed Cost",
       sort: true,
+      formatter: (cellContent, row) => (
+        <Badge
+          className={
+            row.tm_or_fixed_cost == "1"
+              ? "font-size-12 badge-soft-success"
+              : "font-size-12 badge-soft-danger"
+          }
+          color={row.badgeClass}
+          pill
+        >
+          {row.tm_or_fixed_cost == "1" ? "True" : "False"}
+        </Badge>
+      ),
     },
     {
       dataField: "short_description",
@@ -223,6 +239,19 @@ const EcommerceOrders = props => {
       dataField: "pin_to_dashboard",
       text: "Pin To Dashboard",
       sort: true,
+      formatter: (cellContent, row) => (
+        <Badge
+          className={
+            row.tm_or_fixed_cost == "1"
+              ? "font-size-12 badge-soft-success"
+              : "font-size-12 badge-soft-danger"
+          }
+          color={row.badgeClass}
+          pill
+        >
+          {row.pin_to_dashboard == "1" ? "True" : "False"}
+        </Badge>
+      ),
     },
     {
       dataField: "action",
@@ -240,6 +269,19 @@ const EcommerceOrders = props => {
               <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
               <UncontrolledTooltip placement="top" target="edittooltip">
                 Edit
+              </UncontrolledTooltip>
+            </Link>
+            <Link
+              to="#"
+              className="text-danger"
+              // onClick={() => onClickDelete(order)}
+            >
+              <i
+                className="mdi mdi-account font-size-18"
+                id="milestonetooltip"
+              />
+              <UncontrolledTooltip placement="top" target="milestonetooltip">
+                MileStone
               </UncontrolledTooltip>
             </Link>
             <Link
@@ -286,18 +328,19 @@ const EcommerceOrders = props => {
 
   const handleOrderClick = arg => {
     const order = arg
-    console.log(arg, "arg")
-    console.log(order.id, "order id")
+    // console.log(arg, "arg")
+    console.log(order.tm_or_fixed_cost, "order tm_or_fixed_cost")
+    console.log(order.pin_to_dashboard, "order pin_to_dashboard")
     setOrder({
       id: order.id,
       name: order.name,
-      tm_or_fixed_cost: order.tm_or_fixed_cost,
+      tm_or_fixed_cost: order.tm_or_fixed_cost == 1 ? "True" : "False",
       short_description: order.short_description,
-      deadline: order.deadline,
+      deadline: moment(new Date(order.deadline)).format("YYYY-MM-DD"),
       tech_stack: order.tech_stack,
       no_of_resource: order.no_of_resource,
       spoc_manager: order.spoc_manager,
-      pin_to_dashboard: order.pin_to_dashboard,
+      pin_to_dashboard: order.pin_to_dashboard == 1 ? "True" : "False",
     })
 
     setIsEdit(true)
@@ -360,10 +403,10 @@ const EcommerceOrders = props => {
       />
       <div className="page-content">
         <MetaTags>
-          <title>Orders | Skote - React Admin & Dashboard Template</title>
+          <title>Project</title>
         </MetaTags>
         <Container fluid>
-          <Breadcrumbs title="Ecommerce" breadcrumbItem="Orders" />
+          <Breadcrumbs title="Matrics" breadcrumbItem="Project" />
           <Row>
             <Col xs="12">
               <Card>
@@ -402,7 +445,7 @@ const EcommerceOrders = props => {
                                     onClick={handleOrderClicks}
                                   >
                                     <i className="mdi mdi-plus me-1" />
-                                    Add New Order
+                                    Add New Project
                                   </Button>
                                 </div>
                               </Col>
@@ -494,9 +537,13 @@ const EcommerceOrders = props => {
                                             <textarea
                                               className="form-control"
                                               id="short_description"
-                                              // name="short_description"
+                                              name="short_description"
                                               placeholder="Short Description about project..."
                                               rows="3"
+                                              value={
+                                                validation.values
+                                                  .short_description || ""
+                                              }
                                               onChange={validation.handleChange}
                                               onBlur={validation.handleBlur}
                                             ></textarea>

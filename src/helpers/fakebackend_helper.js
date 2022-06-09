@@ -1,4 +1,5 @@
 import axios from "axios"
+import { localeData } from "moment"
 import { del, get, post, put } from "./api_helper"
 import * as url from "./url_helper"
 
@@ -96,7 +97,15 @@ const postJwtRegister = (url, data) => {
       throw message
     })
 }
-
+const onPostMileStone = data => {
+  post(baseUrl + "milestone-create", data, LocalData)
+}
+const onPostsprint = data => {
+  post(baseUrl + "sprint-create", data, LocalData)
+}
+const onPostRiskRegister = data => {
+  post(baseUrl + "risk-create", data, LocalData)
+}
 // Login Method
 const postJwtLogin = data => post(url.POST_FAKE_JWT_LOGIN, data)
 
@@ -151,12 +160,13 @@ export const getOrders = () => get(url.GET_ORDERS, LocalData)
 // add order
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order, LocalData)
 
+export const addNewMilestone = milestone =>
+  post(url.ADD_NEW_MILESTONE, milestone, LocalData)
 // update order
-export const updateOrder = order => put(url.UPDATE_ORDER, order, LocalData)
+export const updateOrder = order => post(url.UPDATE_ORDER, order, LocalData)
 
 // delete order
-export const deleteOrder = order =>
-  del(url.DELETE_ORDER, { headers: { order } })
+export const deleteOrder = ({ id }) => del(url.DELETE_ORDER, id, LocalData)
 
 // get cart data
 export const getCartData = () => get(url.GET_CART_DATA)
@@ -303,4 +313,7 @@ export {
   onLikeReply,
   onAddReply,
   onAddComment,
+  onPostMileStone,
+  onPostsprint,
+  onPostRiskRegister,
 }
