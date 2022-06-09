@@ -98,19 +98,21 @@ const EcommerceOrders = props => {
     }),
     onSubmit: values => {
       console.log(values.deadline, "deadlinesssssssssssssssssssssssss")
-      // console.log(values,"valuessssssssssssssssssssssssssssssssssss")
+      console.log(values, "valuessssssssssssssssssssssssssssssssssss")
+      //1 === true
+      //0 === false
       if (isEdit) {
         console.log("edittriggered", values, "triggered edittttttttttttttttttt")
         const updateOrder = {
           id: order ? order.id : 0,
           name: values.name,
-          tm_or_fixed_cost: values.tm_or_fixed_cost,
+          tm_or_fixed_cost: values.tm_or_fixed_cost == "True" ? 1 : 0,
           short_description: values.short_description,
           deadline: values.deadline,
           tech_stack: values.tech_stack,
           no_of_resource: values.no_of_resource,
           spoc_manager: values.spoc_manager,
-          pin_to_dashboard: values.pin_to_dashboard,
+          pin_to_dashboard: values.pin_to_dashboard == "True" ? 1 : 0,
           //   orderId: values.orderId,
           //   billingName: values.billingName,
           //   orderdate: values.orderdate,
@@ -288,17 +290,18 @@ const EcommerceOrders = props => {
   const handleOrderClick = arg => {
     const order = arg
     // console.log(arg, "arg")
-    // console.log(order.id, "order id")
+    console.log(order.tm_or_fixed_cost, "order tm_or_fixed_cost")
+    console.log(order.pin_to_dashboard, "order pin_to_dashboard")
     setOrder({
       id: order.id,
       name: order.name,
-      tm_or_fixed_cost: order.tm_or_fixed_cost,
+      tm_or_fixed_cost: order.tm_or_fixed_cost == 1 ? "True" : "False",
       short_description: order.short_description,
       deadline: moment(new Date(order.deadline)).format("YYYY-MM-DD"),
       tech_stack: order.tech_stack,
       no_of_resource: order.no_of_resource,
       spoc_manager: order.spoc_manager,
-      pin_to_dashboard: order.pin_to_dashboard,
+      pin_to_dashboard: order.pin_to_dashboard == 1 ? "True" : "False",
     })
 
     setIsEdit(true)

@@ -177,6 +177,7 @@ function* onUpdateOrder({ payload: order }) {
 }
 
 function* onDeleteOrder({ payload: order }) {
+  console.log("delete api", order)
   try {
     const response = yield call(deleteOrder, order)
     console.log("response", response)
@@ -197,10 +198,10 @@ function* onAddNewOrder({ payload: order }) {
     yield put(addOrderFail(error))
   }
 }
-function* onAddNewMilestone({ payload: order }) {
+function* onAddNewMilestone({ payload: milestone }) {
   try {
-    console.log(order, "onAddNewOrder1")
-    const response = yield call(addNewMilestone, order)
+    console.log(milestone, "onAddNewOrder1")
+    const response = yield call(addNewMilestone, milestone)
     console.log(response, "onAddNewOrder response")
     yield put(addmilestoneSuccess(response))
   } catch (error) {
